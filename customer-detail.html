@@ -9,6 +9,7 @@
   <style>
     body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
     #modal-quote-preview:not(.hidden) { display: flex; }
+    #modal-maintain:not(.hidden) { display: flex; }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-700">
@@ -109,6 +110,12 @@
               <p class="text-[11px] text-slate-400 mt-1">2027-04-10 17:23</p>
             </div>
             <div class="col-span-1 flex items-center justify-end text-xs text-slate-500"></div>
+          </div>
+
+          <div class="mb-4 flex items-center justify-end">
+            <button type="button" id="btn-open-maintain" class="hidden h-9 px-4 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 shadow-sm">
+              <i class="fa-solid fa-plus mr-1.5"></i>添加维护
+            </button>
           </div>
 
           <div class="grid grid-cols-12 gap-6">
@@ -304,6 +311,64 @@
   </div>
 
   <div id="toast-quote-action" class="fixed top-6 left-1/2 -translate-x-1/2 z-[130] hidden px-5 py-2.5 rounded-lg bg-slate-800 text-white text-sm shadow-lg" role="status"></div>
+  <div id="toast-maintain-success" class="fixed top-6 left-1/2 -translate-x-1/2 z-[130] hidden px-5 py-2.5 rounded-lg bg-slate-800 text-white text-sm shadow-lg" role="status">提交成功</div>
+
+  <!-- 添加维护弹窗 -->
+  <div id="modal-maintain" class="hidden fixed inset-0 z-[140] items-center justify-center p-4 bg-slate-900/45" role="dialog" aria-modal="true" aria-labelledby="modal-maintain-title">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col border border-slate-200">
+      <div class="relative flex items-center justify-center h-14 px-4 border-b border-slate-100 shrink-0">
+        <h2 id="modal-maintain-title" class="text-base font-semibold text-slate-800">添加维护</h2>
+        <button type="button" id="btn-close-maintain" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 flex items-center justify-center" aria-label="关闭">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form class="overflow-y-auto flex-1 px-8 py-6 space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4">
+          <div class="flex items-center gap-4 md:col-span-2">
+            <label class="w-24 shrink-0 text-sm text-slate-600">公司名称 <span class="text-red-500">*</span></label>
+            <div class="flex-1 relative min-w-0">
+              <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                <option selected>苏州八识天科技有限公司</option>
+                <option>苏州范尔科技有限公司</option>
+                <option>南京美时科技有限公司</option>
+              </select>
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <label class="w-24 shrink-0 text-sm text-slate-600">维护类型 <span class="text-red-500">*</span></label>
+            <div class="flex-1 relative min-w-0">
+              <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                <option selected>资料归档</option>
+                <option>联系确认</option>
+                <option>年检提醒</option>
+              </select>
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <label class="w-24 shrink-0 text-sm text-slate-600">维护时间 <span class="text-red-500">*</span></label>
+            <div class="flex-1 relative min-w-0">
+              <input type="text" value="2026-04-07 10:09" class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 tabular-nums focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-start gap-2 md:gap-4">
+          <label class="w-24 shrink-0 text-sm text-slate-600 md:text-right pt-2">添加维护内容 <span class="text-red-500">*</span></label>
+          <div class="flex-1 min-w-0 relative">
+            <textarea id="maintain-content" maxlength="1000" rows="5" placeholder="请输入" class="w-full px-3 py-2.5 pb-8 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 resize-y min-h-[150px] focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400 bg-slate-50/80">营业执照副本扫描件已更新至客户档案</textarea>
+            <span class="absolute bottom-2 right-3 text-xs text-slate-400 tabular-nums pointer-events-none"><span id="cnt-maintain">0</span>/1000</span>
+          </div>
+        </div>
+      </form>
+      <div class="flex justify-center gap-6 px-8 py-5 border-t border-slate-100 bg-white shrink-0">
+        <button type="button" id="btn-confirm-maintain" class="h-10 w-40 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700">确认</button>
+        <button type="button" id="btn-cancel-maintain" class="h-10 w-40 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 hover:bg-slate-50">取消</button>
+      </div>
+    </div>
+  </div>
 
   <!-- 报价单预览（样式同线索跟进详情） -->
   <div id="modal-quote-preview" class="hidden fixed inset-0 z-[120] items-center justify-center p-4 bg-slate-900/50" role="dialog" aria-modal="true" aria-labelledby="quote-preview-title">
@@ -383,8 +448,10 @@
       var tabActive = 'service';
       var tabBtns = document.querySelectorAll('[data-customer-tab]');
       var tabPanels = document.querySelectorAll('.tab-panel-customer');
+      var btnOpenMaintain = document.getElementById('btn-open-maintain');
       function setCustomerTab(id) {
         tabActive = id;
+        if (btnOpenMaintain) btnOpenMaintain.classList.toggle('hidden', id !== 'maintenance');
         tabBtns.forEach(function (btn) {
           var on = btn.getAttribute('data-customer-tab') === id;
           btn.setAttribute('aria-selected', on ? 'true' : 'false');
@@ -406,6 +473,56 @@
         });
       });
       setCustomerTab('service');
+
+      var modalMaintain = document.getElementById('modal-maintain');
+      var btnCloseMaintain = document.getElementById('btn-close-maintain');
+      var btnCancelMaintain = document.getElementById('btn-cancel-maintain');
+      var btnConfirmMaintain = document.getElementById('btn-confirm-maintain');
+      var toastMaintain = document.getElementById('toast-maintain-success');
+      var maintainContent = document.getElementById('maintain-content');
+      var cntMaintain = document.getElementById('cnt-maintain');
+      var toastMaintainTimer;
+
+      function syncCount(inputEl, countEl) {
+        if (!inputEl || !countEl) return;
+        countEl.textContent = String(inputEl.value.length);
+      }
+      function showMaintainSuccess() {
+        if (!toastMaintain) return;
+        toastMaintain.classList.remove('hidden');
+        clearTimeout(toastMaintainTimer);
+        toastMaintainTimer = setTimeout(function () {
+          toastMaintain.classList.add('hidden');
+        }, 2200);
+      }
+      function openMaintainModal() {
+        if (!modalMaintain) return;
+        modalMaintain.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      }
+      function closeMaintainModal() {
+        if (!modalMaintain) return;
+        modalMaintain.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+      if (btnOpenMaintain) btnOpenMaintain.addEventListener('click', openMaintainModal);
+      if (btnCloseMaintain) btnCloseMaintain.addEventListener('click', closeMaintainModal);
+      if (btnCancelMaintain) btnCancelMaintain.addEventListener('click', closeMaintainModal);
+      if (btnConfirmMaintain) {
+        btnConfirmMaintain.addEventListener('click', function () {
+          closeMaintainModal();
+          showMaintainSuccess();
+        });
+      }
+      if (modalMaintain) {
+        modalMaintain.addEventListener('click', function (e) {
+          if (e.target === modalMaintain) closeMaintainModal();
+        });
+      }
+      if (maintainContent && cntMaintain) {
+        maintainContent.addEventListener('input', function () { syncCount(maintainContent, cntMaintain); });
+        syncCount(maintainContent, cntMaintain);
+      }
 
       var modalQp = document.getElementById('modal-quote-preview');
       var toastQ = document.getElementById('toast-quote-action');
@@ -447,6 +564,10 @@
         });
       }
       document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modalMaintain && !modalMaintain.classList.contains('hidden')) {
+          closeMaintainModal();
+          return;
+        }
         if (e.key === 'Escape' && modalQp && !modalQp.classList.contains('hidden')) {
           closeQuotePreview();
         }

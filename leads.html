@@ -11,7 +11,8 @@
     #modal-add-lead:not(.hidden),
     #modal-assign-lead:not(.hidden),
     #modal-quote:not(.hidden),
-    #modal-follow-note:not(.hidden) { display: flex; }
+    #modal-follow-note:not(.hidden),
+    #modal-supplement-customer:not(.hidden) { display: flex; }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-700">
@@ -204,7 +205,7 @@
                   <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap sticky right-0 bg-white shadow-[-4px_0_8px_-4px_rgba(0,0,0,0.08)]">
                     <a href="#" class="text-red-600 hover:underline">催跟进</a>
                     <span class="text-slate-300 mx-1">|</span>
-                    <button type="button" class="btn-open-follow-note text-slate-600 hover:underline text-sm bg-transparent border-0 cursor-pointer p-0 font-inherit">添加说明</button>
+                    <button type="button" class="btn-open-follow-note text-slate-600 hover:underline text-sm bg-transparent border-0 cursor-pointer p-0 font-inherit">添加跟进</button>
                   </td>
                 </tr>
                 <tr class="hover:bg-slate-50/80">
@@ -225,7 +226,7 @@
                   <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap sticky right-0 bg-white shadow-[-4px_0_8px_-4px_rgba(0,0,0,0.08)]">
                     <button type="button" id="btn-open-quote" class="text-blue-600 hover:underline text-sm bg-transparent border-0 cursor-pointer p-0 font-inherit">生成报价单</button>
                     <span class="text-slate-300 mx-1">|</span>
-                    <button type="button" class="btn-open-follow-note text-slate-600 hover:underline text-sm bg-transparent border-0 cursor-pointer p-0 font-inherit">添加说明</button>
+                    <button type="button" class="btn-open-follow-note text-slate-600 hover:underline text-sm bg-transparent border-0 cursor-pointer p-0 font-inherit">添加跟进</button>
                   </td>
                 </tr>
                 <tr class="hover:bg-slate-50/80">
@@ -244,7 +245,7 @@
                   <td class="px-3 py-3 border-b border-slate-100"><a href="lead-followup.html?status=won&id=zhaoqian" class="text-blue-600 hover:underline">查看详情</a></td>
                   <td class="px-3 py-3 border-b border-slate-100">销售A</td>
                   <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap sticky right-0 bg-white shadow-[-4px_0_8px_-4px_rgba(0,0,0,0.08)]">
-                    <span class="text-slate-400">—</span>
+                    <button type="button" class="btn-open-supplement-customer text-blue-600 hover:underline text-sm bg-transparent border-0 cursor-pointer p-0 font-inherit">补充客户信息</button>
                   </td>
                 </tr>
                 <tr class="hover:bg-slate-50/80">
@@ -584,7 +585,7 @@
     </div>
   </div>
 
-  <!-- 添加跟进（列表「添加说明」入口） -->
+  <!-- 添加跟进（列表「添加跟进」入口） -->
   <div id="modal-follow-note" class="hidden fixed inset-0 z-[100] items-center justify-center p-4 bg-slate-900/45" role="dialog" aria-modal="true" aria-labelledby="modal-follow-note-title">
     <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-hidden flex flex-col border border-slate-200">
       <div class="relative flex items-center justify-center h-14 px-4 border-b border-slate-100 shrink-0">
@@ -628,6 +629,159 @@
     </div>
   </div>
 
+  <!-- 补充客户信息 -->
+  <div id="modal-supplement-customer" class="hidden fixed inset-0 z-[100] items-center justify-center p-4 bg-slate-900/45" role="dialog" aria-modal="true" aria-labelledby="modal-supplement-title">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-5xl max-h-[92vh] overflow-hidden flex flex-col border border-slate-200">
+      <div class="relative flex items-center justify-center h-14 px-4 border-b border-slate-100 shrink-0">
+        <h2 id="modal-supplement-title" class="text-base font-semibold text-slate-800">补充客户信息</h2>
+        <button type="button" class="btn-close-supplement absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 flex items-center justify-center" aria-label="关闭">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="form-supplement-customer" class="overflow-y-auto flex-1 px-8 py-6">
+        <div class="rounded-lg bg-slate-50 border border-slate-200 px-4 py-3 flex items-center">
+          <span class="w-1 h-4 rounded bg-blue-600 mr-3" aria-hidden="true"></span>
+          <span class="text-sm font-medium text-slate-800">基本信息</span>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5 text-sm">
+          <div class="flex items-center gap-4">
+            <label class="w-24 text-slate-600">联系人 <span class="text-red-500">*</span></label>
+            <div class="flex-1 relative">
+              <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                <option value="" selected>请输入联系人姓名</option>
+                <option>赵倩</option>
+                <option>李先生</option>
+                <option>王敏</option>
+              </select>
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <label class="w-24 text-slate-600">联系方式 <span class="text-red-500">*</span></label>
+            <div class="flex-1 relative">
+              <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                <option value="" selected>请输入联系人手机号</option>
+                <option>17705126600</option>
+                <option>13812345678</option>
+              </select>
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <label class="w-24 text-slate-600">所属区域 <span class="text-red-500">*</span></label>
+            <div class="flex-1 relative">
+              <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                <option value="" selected>请选择所属区域</option>
+                <option>苏州市/工业园区</option>
+                <option>昆山</option>
+                <option>无锡</option>
+              </select>
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <label class="w-24 text-slate-600">行业类别 <span class="text-red-500">*</span></label>
+            <div class="flex-1 relative">
+              <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                <option selected>商业贸易</option>
+                <option>科技服务</option>
+                <option>制造</option>
+              </select>
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <label class="w-24 text-slate-600">企业类型 <span class="text-red-500">*</span></label>
+            <div class="flex-1 relative">
+              <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                <option value="" selected>请选择企业类型</option>
+                <option>一般纳税人</option>
+                <option>小规模</option>
+              </select>
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <label class="w-24 text-slate-600">来源渠道 <span class="text-red-500">*</span></label>
+            <div class="flex-1 relative">
+              <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                <option value="" selected>请选择来源渠道</option>
+                <option>抖音</option>
+                <option>小红书</option>
+                <option>58同城</option>
+                <option>老客户介绍</option>
+              </select>
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <label class="w-24 text-slate-600">企业名称</label>
+            <input type="text" placeholder="请输入企业名称" class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+          </div>
+          <div class="flex items-center gap-4">
+            <label class="w-24 text-slate-600">公司规模</label>
+            <div class="flex-1 relative">
+              <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                <option value="" selected>请选择公司规模</option>
+                <option>0-10人</option>
+                <option>10-50人</option>
+                <option>50人以上</option>
+              </select>
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <label class="w-24 text-slate-600">成立日期</label>
+            <div class="flex-1 relative">
+              <input type="text" placeholder="请选择成立日期" class="w-full h-10 pl-3 pr-10 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+              <i class="fa-regular fa-calendar pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <label class="w-24 text-slate-600">企业性质</label>
+            <div class="flex-1 relative">
+              <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                <option value="" selected>请选择企业性质</option>
+                <option>民营</option>
+                <option>国企</option>
+                <option>外资</option>
+              </select>
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4 md:col-span-2">
+            <label class="w-24 text-slate-600">企业画像</label>
+            <div class="flex-1 flex items-center gap-3">
+              <input type="text" placeholder="请输入企业画像" class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+              <button type="button" class="text-blue-600 hover:underline text-sm"><i class="fa-solid fa-plus mr-1"></i>添加企业画像</button>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4 md:col-span-2">
+            <label class="w-24 text-slate-600">营业地址</label>
+            <input type="text" placeholder="请输入企业营业地址" class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+          </div>
+          <div class="flex items-start gap-4 md:col-span-2">
+            <label class="w-24 text-slate-600 pt-2">备注</label>
+            <textarea rows="3" placeholder="请输入备注内容" class="flex-1 px-3 py-2 rounded-lg border border-slate-200 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400"></textarea>
+          </div>
+        </div>
+      </form>
+
+      <div class="flex justify-center gap-6 px-8 py-5 border-t border-slate-100 bg-white shrink-0">
+        <button type="button" id="btn-confirm-supplement" class="h-10 w-40 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700">确认</button>
+        <button type="button" class="btn-close-supplement h-10 w-40 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 hover:bg-slate-50">取消</button>
+      </div>
+    </div>
+  </div>
+
   <div id="toast-success" class="fixed top-6 left-1/2 -translate-x-1/2 z-[110] hidden px-5 py-2.5 rounded-lg bg-slate-800 text-white text-sm shadow-lg" role="status">新增成功</div>
 
   <script>
@@ -636,10 +790,12 @@
       var mAssign = document.getElementById('modal-assign-lead');
       var mQuote = document.getElementById('modal-quote');
       var mNote = document.getElementById('modal-follow-note');
+      var mSupp = document.getElementById('modal-supplement-customer');
       var openBtn = document.getElementById('btn-open-add-lead');
       var closeBtn = document.getElementById('btn-close-add-lead');
       var cancelBtn = document.getElementById('btn-cancel-add-lead');
       var saveBtn = document.getElementById('btn-save-add-lead');
+      var btnConfirmSupp = document.getElementById('btn-confirm-supplement');
       var toast = document.getElementById('toast-success');
       var nameIn = document.getElementById('lead-name');
       var phoneIn = document.getElementById('lead-phone');
@@ -657,6 +813,7 @@
         if (mAssign && !mAssign.classList.contains('hidden')) any = true;
         if (mQuote && !mQuote.classList.contains('hidden')) any = true;
         if (mNote && !mNote.classList.contains('hidden')) any = true;
+        if (mSupp && !mSupp.classList.contains('hidden')) any = true;
         document.body.classList.toggle('overflow-hidden', any);
       }
 
@@ -697,6 +854,18 @@
 
       function closeFollowNote() {
         mNote.classList.add('hidden');
+        syncBodyScroll();
+      }
+
+      function openSupp() {
+        if (!mSupp) return;
+        mSupp.classList.remove('hidden');
+        syncBodyScroll();
+      }
+
+      function closeSupp() {
+        if (!mSupp) return;
+        mSupp.classList.add('hidden');
         syncBodyScroll();
       }
 
@@ -880,8 +1049,30 @@
         });
       }
 
+      document.querySelectorAll('.btn-open-supplement-customer').forEach(function (b) {
+        b.addEventListener('click', openSupp);
+      });
+      if (mSupp) {
+        mSupp.addEventListener('click', function (e) {
+          if (e.target === mSupp) closeSupp();
+        });
+        mSupp.querySelectorAll('.btn-close-supplement').forEach(function (b) {
+          b.addEventListener('click', closeSupp);
+        });
+      }
+      if (btnConfirmSupp) {
+        btnConfirmSupp.addEventListener('click', function () {
+          showToast('提交成功');
+          closeSupp();
+        });
+      }
+
       document.addEventListener('keydown', function (e) {
         if (e.key !== 'Escape') return;
+        if (mSupp && !mSupp.classList.contains('hidden')) {
+          closeSupp();
+          return;
+        }
         if (mNote && !mNote.classList.contains('hidden')) {
           closeFollowNote();
           return;

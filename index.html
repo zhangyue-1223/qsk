@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
     body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
+    #modal-add-lead:not(.hidden),
+    #modal-follow-note:not(.hidden),
+    #modal-maintain:not(.hidden) { display: flex; }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-700">
@@ -93,30 +96,30 @@
                 <span class="text-xs text-slate-400">高频业务一键直达</span>
               </div>
               <div class="grid grid-cols-4 gap-3">
-                <a class="rounded-lg border border-slate-200 p-3 hover:border-blue-300 hover:bg-blue-50 transition" href="leads.html">
+                <button type="button" id="btn-open-add-lead" class="w-full text-left rounded-lg border border-slate-200 p-3 hover:border-blue-300 hover:bg-blue-50 transition">
                   <div class="w-9 h-9 rounded-lg bg-orange-100 text-orange-500 flex items-center justify-center mb-2">
                     <i class="fa-solid fa-user-plus"></i>
                   </div>
                   <p class="text-sm font-medium text-slate-700">快速录入线索</p>
-                </a>
-                <a class="rounded-lg border border-slate-200 p-3 hover:border-blue-300 hover:bg-blue-50 transition" href="#">
+                </button>
+                <button type="button" id="btn-open-follow-note" class="w-full text-left rounded-lg border border-slate-200 p-3 hover:border-blue-300 hover:bg-blue-50 transition">
                   <div class="w-9 h-9 rounded-lg bg-red-100 text-red-500 flex items-center justify-center mb-2">
                     <i class="fa-solid fa-file-circle-plus"></i>
                   </div>
                   <p class="text-sm font-medium text-slate-700">新增跟进说明</p>
-                </a>
+                </button>
                 <a class="rounded-lg border border-slate-200 p-3 hover:border-blue-300 hover:bg-blue-50 transition" href="#">
                   <div class="w-9 h-9 rounded-lg bg-sky-100 text-sky-500 flex items-center justify-center mb-2">
                     <i class="fa-solid fa-comments"></i>
                   </div>
                   <p class="text-sm font-medium text-slate-700">发起合同签署</p>
                 </a>
-                <a class="rounded-lg border border-slate-200 p-3 hover:border-blue-300 hover:bg-blue-50 transition" href="#">
+                <button type="button" id="btn-open-maintain" class="w-full text-left rounded-lg border border-slate-200 p-3 hover:border-blue-300 hover:bg-blue-50 transition">
                   <div class="w-9 h-9 rounded-lg bg-amber-100 text-amber-500 flex items-center justify-center mb-2">
                     <i class="fa-solid fa-folder-plus"></i>
                   </div>
                   <p class="text-sm font-medium text-slate-700">添加客户维护</p>
-                </a>
+                </button>
               </div>
             </section>
 
@@ -356,7 +359,7 @@
                 <h2 class="text-base font-semibold text-slate-800">代办事项</h2>
                 <span class="text-xs text-red-500">8</span>
               </div>
-              <ul class="space-y-2 text-sm">
+              <ul class="space-y-2 text-sm max-h-44 overflow-y-auto pr-1">
                 <li class="flex justify-between items-center p-2 rounded bg-red-50">
                   <span>待完成：优质客户合同补充协议</span>
                   <a class="text-xs text-red-600" href="#">去处理</a>
@@ -368,6 +371,14 @@
                 <li class="flex justify-between items-center p-2 rounded bg-blue-50">
                   <span>客户回访：江南生物本周复盘</span>
                   <a class="text-xs text-blue-600" href="#">去跟进</a>
+                </li>
+                <li class="flex justify-between items-center p-2 rounded bg-violet-50">
+                  <span>资料补齐：园区企业税控托管授权书</span>
+                  <a class="text-xs text-violet-600" href="#">去补充</a>
+                </li>
+                <li class="flex justify-between items-center p-2 rounded bg-emerald-50">
+                  <span>续费跟进：苏州范尔科技合同到期提醒</span>
+                  <a class="text-xs text-emerald-600" href="#">去联系</a>
                 </li>
               </ul>
             </section>
@@ -431,6 +442,200 @@
       </section>
     </main>
   </div>
+
+  <!-- 新增线索弹窗 -->
+  <div id="modal-add-lead" class="hidden fixed inset-0 z-[100] items-center justify-center p-4 bg-slate-900/45" role="dialog" aria-modal="true" aria-labelledby="modal-add-lead-title">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-hidden flex flex-col border border-slate-200">
+      <div class="relative flex items-center justify-center h-14 px-4 border-b border-slate-100 shrink-0">
+        <h2 id="modal-add-lead-title" class="text-base font-semibold text-slate-800">新增线索</h2>
+        <button type="button" id="btn-close-add-lead" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 flex items-center justify-center" aria-label="关闭">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form id="form-add-lead" class="overflow-y-auto flex-1 px-6 py-4 space-y-1">
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">姓名 <span class="text-red-500">*</span></label>
+          <div class="flex-1 relative min-w-0">
+            <input id="lead-name" type="text" maxlength="5" placeholder="请输入内容" class="w-full h-10 pl-3 pr-14 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 tabular-nums pointer-events-none"><span id="cnt-name">0</span>/5</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">手机号 <span class="text-red-500">*</span></label>
+          <div class="flex-1 relative min-w-0">
+            <input id="lead-phone" type="text" maxlength="11" inputmode="numeric" placeholder="请输入内容" class="w-full h-10 pl-3 pr-16 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 tabular-nums pointer-events-none"><span id="cnt-phone">0</span>/11</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">所属区域</label>
+          <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <option selected>苏州市/工业园区</option>
+            <option>无锡市/新吴区</option>
+            <option>昆山市</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">行业类别</label>
+          <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <option selected>医疗器械</option>
+            <option>贸易</option>
+            <option>科技服务</option>
+            <option>制造</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">企业形式</label>
+          <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <option selected>一般纳税人</option>
+            <option>小规模</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">业务类型</label>
+          <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <option value="">请选择</option>
+            <option>代理记账</option>
+            <option>工商注册</option>
+            <option>税务筹划</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">来源渠道 <span class="text-red-500">*</span></label>
+          <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <option selected>抖音</option>
+            <option>小红书</option>
+            <option>58同城</option>
+            <option>老客户介绍</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">流转处理 <span class="text-red-500">*</span></label>
+          <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <option selected>销售主管</option>
+            <option>销售一组</option>
+            <option>销售二组</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">备注</label>
+          <div class="flex-1 relative min-w-0">
+            <input id="lead-remark" type="text" maxlength="30" placeholder="请输入内容" class="w-full h-10 pl-3 pr-16 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 tabular-nums pointer-events-none"><span id="cnt-remark">0</span>/30</span>
+          </div>
+        </div>
+      </form>
+      <div class="flex justify-end gap-3 px-6 py-4 border-t border-slate-100 bg-slate-50/80 shrink-0">
+        <button type="button" id="btn-cancel-add-lead" class="h-10 px-6 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 hover:bg-slate-50">取消</button>
+        <button type="button" id="btn-save-add-lead" class="h-10 px-6 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 添加跟进弹窗 -->
+  <div id="modal-follow-note" class="hidden fixed inset-0 z-[100] items-center justify-center p-4 bg-slate-900/45" role="dialog" aria-modal="true" aria-labelledby="modal-follow-note-title">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-hidden flex flex-col border border-slate-200">
+      <div class="relative flex items-center justify-center h-14 px-4 border-b border-slate-100 shrink-0">
+        <h2 id="modal-follow-note-title" class="text-base font-semibold text-slate-800">添加跟进</h2>
+        <button type="button" id="btn-close-follow-note" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 flex items-center justify-center" aria-label="关闭">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form id="form-follow-note" class="overflow-y-auto flex-1 px-6 py-5 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <label class="w-full sm:w-28 shrink-0 text-sm text-slate-600 sm:text-right">跟进进度 <span class="text-red-500">*</span></label>
+          <div class="flex-1 min-w-0 relative">
+            <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+              <option value="following" selected>跟进中</option>
+              <option value="quote">已发报价</option>
+              <option value="negotiate">磋商中</option>
+              <option value="pending_sign">待签约</option>
+            </select>
+            <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <label class="w-full sm:w-28 shrink-0 text-sm text-slate-600 sm:text-right">跟进时间 <span class="text-red-500">*</span></label>
+          <div class="flex-1 min-w-0 relative">
+            <input type="text" value="2026-04-07 10:09" class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 tabular-nums focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4">
+          <label class="w-full sm:w-28 shrink-0 text-sm text-slate-600 sm:text-right pt-2">跟进内容 <span class="text-red-500">*</span></label>
+          <div class="flex-1 min-w-0 relative">
+            <textarea id="follow-note-content" maxlength="1000" rows="5" placeholder="请输入内容" class="w-full px-3 py-2.5 pb-8 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 resize-y min-h-[140px] focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400 bg-slate-50/80"></textarea>
+            <span class="absolute bottom-2 right-3 text-xs text-slate-400 tabular-nums pointer-events-none"><span id="cnt-follow-note">0</span>/1000</span>
+          </div>
+        </div>
+      </form>
+      <div class="flex justify-center gap-3 px-6 py-4 border-t border-slate-100 bg-slate-50/80 shrink-0">
+        <button type="button" id="btn-confirm-follow-note" class="h-10 px-8 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700">确认</button>
+        <button type="button" id="btn-cancel-follow-note" class="h-10 px-8 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 hover:bg-slate-50">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-add-lead-success" class="fixed top-6 left-1/2 -translate-x-1/2 z-[110] hidden px-5 py-2.5 rounded-lg bg-slate-800 text-white text-sm shadow-lg" role="status">新增成功</div>
+  <div id="toast-follow-success" class="fixed top-6 left-1/2 -translate-x-1/2 z-[110] hidden px-5 py-2.5 rounded-lg bg-slate-800 text-white text-sm shadow-lg" role="status">提交成功</div>
+  <div id="toast-maintain-success" class="fixed top-6 left-1/2 -translate-x-1/2 z-[110] hidden px-5 py-2.5 rounded-lg bg-slate-800 text-white text-sm shadow-lg" role="status">提交成功</div>
+
+  <!-- 添加维护弹窗 -->
+  <div id="modal-maintain" class="hidden fixed inset-0 z-[100] items-center justify-center p-4 bg-slate-900/45" role="dialog" aria-modal="true" aria-labelledby="modal-maintain-title">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col border border-slate-200">
+      <div class="relative flex items-center justify-center h-14 px-4 border-b border-slate-100 shrink-0">
+        <h2 id="modal-maintain-title" class="text-base font-semibold text-slate-800">添加维护</h2>
+        <button type="button" id="btn-close-maintain" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 flex items-center justify-center" aria-label="关闭">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form id="form-maintain" class="overflow-y-auto flex-1 px-8 py-6 space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4">
+          <div class="flex items-center gap-4 md:col-span-2">
+            <label class="w-24 shrink-0 text-sm text-slate-600">公司名称 <span class="text-red-500">*</span></label>
+            <div class="flex-1 relative min-w-0">
+              <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                <option selected>苏州美时信息科技</option>
+                <option>苏州范尔科技有限公司</option>
+                <option>南京美时科技有限公司</option>
+              </select>
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <label class="w-24 shrink-0 text-sm text-slate-600">维护类型 <span class="text-red-500">*</span></label>
+            <div class="flex-1 relative min-w-0">
+              <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                <option selected>资料归档</option>
+                <option>联系确认</option>
+                <option>年检提醒</option>
+              </select>
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <label class="w-24 shrink-0 text-sm text-slate-600">维护时间 <span class="text-red-500">*</span></label>
+            <div class="flex-1 relative min-w-0">
+              <input id="maintain-time" type="text" value="2026-04-07 10:09" class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 tabular-nums focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-start gap-2 md:gap-4">
+          <label class="w-24 shrink-0 text-sm text-slate-600 md:text-right pt-2">添加维护内容 <span class="text-red-500">*</span></label>
+          <div class="flex-1 min-w-0 relative">
+            <textarea id="maintain-content" maxlength="1000" rows="5" placeholder="请输入" class="w-full px-3 py-2.5 pb-8 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 resize-y min-h-[150px] focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400 bg-slate-50/80">营业执照副本扫描件已更新至客户档案</textarea>
+            <span class="absolute bottom-2 right-3 text-xs text-slate-400 tabular-nums pointer-events-none"><span id="cnt-maintain">0</span>/1000</span>
+          </div>
+        </div>
+      </form>
+      <div class="flex justify-center gap-6 px-8 py-5 border-t border-slate-100 bg-white shrink-0">
+        <button type="button" id="btn-confirm-maintain" class="h-10 w-40 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700">确认</button>
+        <button type="button" id="btn-cancel-maintain" class="h-10 w-40 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 hover:bg-slate-50">取消</button>
+      </div>
+    </div>
+  </div>
   <script>
     (function () {
       var tabPersonal = document.getElementById('ranking-tab-personal');
@@ -463,6 +668,180 @@
 
       tabPersonal.addEventListener('click', activatePersonal);
       tabTeam.addEventListener('click', activateTeam);
+
+      var modalAddLead = document.getElementById('modal-add-lead');
+      var btnOpenAddLead = document.getElementById('btn-open-add-lead');
+      var btnCloseAddLead = document.getElementById('btn-close-add-lead');
+      var btnCancelAddLead = document.getElementById('btn-cancel-add-lead');
+      var btnSaveAddLead = document.getElementById('btn-save-add-lead');
+      var toastAddLead = document.getElementById('toast-add-lead-success');
+      var modalFollowNote = document.getElementById('modal-follow-note');
+      var btnOpenFollowNote = document.getElementById('btn-open-follow-note');
+      var btnCloseFollowNote = document.getElementById('btn-close-follow-note');
+      var btnCancelFollowNote = document.getElementById('btn-cancel-follow-note');
+      var btnConfirmFollowNote = document.getElementById('btn-confirm-follow-note');
+      var toastFollow = document.getElementById('toast-follow-success');
+      var leadName = document.getElementById('lead-name');
+      var leadPhone = document.getElementById('lead-phone');
+      var leadRemark = document.getElementById('lead-remark');
+      var followNoteContent = document.getElementById('follow-note-content');
+      var cntName = document.getElementById('cnt-name');
+      var cntPhone = document.getElementById('cnt-phone');
+      var cntRemark = document.getElementById('cnt-remark');
+      var cntFollowNote = document.getElementById('cnt-follow-note');
+      var toastTimer;
+      var toastFollowTimer;
+      var modalMaintain = document.getElementById('modal-maintain');
+      var btnOpenMaintain = document.getElementById('btn-open-maintain');
+      var btnCloseMaintain = document.getElementById('btn-close-maintain');
+      var btnCancelMaintain = document.getElementById('btn-cancel-maintain');
+      var btnConfirmMaintain = document.getElementById('btn-confirm-maintain');
+      var toastMaintain = document.getElementById('toast-maintain-success');
+      var maintainContent = document.getElementById('maintain-content');
+      var cntMaintain = document.getElementById('cnt-maintain');
+      var toastMaintainTimer;
+
+      function openAddLeadModal() {
+        if (!modalAddLead) return;
+        modalAddLead.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      }
+
+      function closeAddLeadModal() {
+        if (!modalAddLead) return;
+        modalAddLead.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+
+      function openFollowNoteModal() {
+        if (!modalFollowNote) return;
+        modalFollowNote.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      }
+
+      function closeFollowNoteModal() {
+        if (!modalFollowNote) return;
+        modalFollowNote.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+
+      function syncCount(inputEl, countEl) {
+        if (!inputEl || !countEl) return;
+        countEl.textContent = String(inputEl.value.length);
+      }
+
+      function showAddLeadSuccess() {
+        if (!toastAddLead) return;
+        toastAddLead.classList.remove('hidden');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toastAddLead.classList.add('hidden');
+        }, 2200);
+      }
+
+      function showFollowSuccess() {
+        if (!toastFollow) return;
+        toastFollow.classList.remove('hidden');
+        clearTimeout(toastFollowTimer);
+        toastFollowTimer = setTimeout(function () {
+          toastFollow.classList.add('hidden');
+        }, 2200);
+      }
+
+      function openMaintainModal() {
+        if (!modalMaintain) return;
+        modalMaintain.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      }
+
+      function closeMaintainModal() {
+        if (!modalMaintain) return;
+        modalMaintain.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+
+      function showMaintainSuccess() {
+        if (!toastMaintain) return;
+        toastMaintain.classList.remove('hidden');
+        clearTimeout(toastMaintainTimer);
+        toastMaintainTimer = setTimeout(function () {
+          toastMaintain.classList.add('hidden');
+        }, 2200);
+      }
+
+      if (btnOpenAddLead) btnOpenAddLead.addEventListener('click', openAddLeadModal);
+      if (btnCloseAddLead) btnCloseAddLead.addEventListener('click', closeAddLeadModal);
+      if (btnCancelAddLead) btnCancelAddLead.addEventListener('click', closeAddLeadModal);
+      if (btnSaveAddLead) {
+        btnSaveAddLead.addEventListener('click', function () {
+          closeAddLeadModal();
+          showAddLeadSuccess();
+        });
+      }
+      if (btnOpenFollowNote) btnOpenFollowNote.addEventListener('click', openFollowNoteModal);
+      if (btnCloseFollowNote) btnCloseFollowNote.addEventListener('click', closeFollowNoteModal);
+      if (btnCancelFollowNote) btnCancelFollowNote.addEventListener('click', closeFollowNoteModal);
+      if (btnConfirmFollowNote) {
+        btnConfirmFollowNote.addEventListener('click', function () {
+          closeFollowNoteModal();
+          showFollowSuccess();
+        });
+      }
+      if (btnOpenMaintain) btnOpenMaintain.addEventListener('click', openMaintainModal);
+      if (btnCloseMaintain) btnCloseMaintain.addEventListener('click', closeMaintainModal);
+      if (btnCancelMaintain) btnCancelMaintain.addEventListener('click', closeMaintainModal);
+      if (btnConfirmMaintain) {
+        btnConfirmMaintain.addEventListener('click', function () {
+          closeMaintainModal();
+          showMaintainSuccess();
+        });
+      }
+      if (modalAddLead) {
+        modalAddLead.addEventListener('click', function (e) {
+          if (e.target === modalAddLead) closeAddLeadModal();
+        });
+      }
+      if (modalFollowNote) {
+        modalFollowNote.addEventListener('click', function (e) {
+          if (e.target === modalFollowNote) closeFollowNoteModal();
+        });
+      }
+      if (modalMaintain) {
+        modalMaintain.addEventListener('click', function (e) {
+          if (e.target === modalMaintain) closeMaintainModal();
+        });
+      }
+      if (leadName && cntName) {
+        leadName.addEventListener('input', function () { syncCount(leadName, cntName); });
+        syncCount(leadName, cntName);
+      }
+      if (leadPhone && cntPhone) {
+        leadPhone.addEventListener('input', function () { syncCount(leadPhone, cntPhone); });
+        syncCount(leadPhone, cntPhone);
+      }
+      if (leadRemark && cntRemark) {
+        leadRemark.addEventListener('input', function () { syncCount(leadRemark, cntRemark); });
+        syncCount(leadRemark, cntRemark);
+      }
+      if (followNoteContent && cntFollowNote) {
+        followNoteContent.addEventListener('input', function () { syncCount(followNoteContent, cntFollowNote); });
+        syncCount(followNoteContent, cntFollowNote);
+      }
+      if (maintainContent && cntMaintain) {
+        maintainContent.addEventListener('input', function () { syncCount(maintainContent, cntMaintain); });
+        syncCount(maintainContent, cntMaintain);
+      }
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modalAddLead && !modalAddLead.classList.contains('hidden')) {
+          closeAddLeadModal();
+        }
+        if (e.key === 'Escape' && modalFollowNote && !modalFollowNote.classList.contains('hidden')) {
+          closeFollowNoteModal();
+        }
+        if (e.key === 'Escape' && modalMaintain && !modalMaintain.classList.contains('hidden')) {
+          closeMaintainModal();
+        }
+      });
     })();
   </script>
 </body>
