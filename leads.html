@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>线索管理 - 企税康协同工作平台</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
+    #modal-add-lead:not(.hidden),
+    #modal-assign-lead:not(.hidden),
+    #modal-quote:not(.hidden),
+    #modal-follow-note:not(.hidden) { display: flex; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-700">
+  <div class="min-h-screen w-full flex">
+    <aside class="w-64 bg-slate-900 text-slate-200 flex flex-col shrink-0">
+      <div class="h-16 px-3 flex items-center border-b border-slate-800">
+        <div class="w-full rounded-lg bg-white px-2 py-1.5 flex items-center justify-center">
+          <img src="./assets/qishuikang-logo.png" alt="企税康Logo" class="h-8 w-full max-h-8 object-contain object-center mix-blend-multiply">
+        </div>
+      </div>
+
+      <nav class="flex-1 py-4 text-sm overflow-y-auto">
+        <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="index.html">
+          <i class="fa-solid fa-table-columns w-5 mr-2"></i>工作台
+        </a>
+        <details class="mx-3 mb-1 group" open>
+          <summary class="list-none cursor-pointer h-10 px-4 rounded-lg bg-slate-800/80 flex items-center justify-between text-white [&::-webkit-details-marker]:hidden">
+            <span class="flex items-center"><i class="fa-solid fa-users w-5 mr-2"></i>客户中心</span>
+            <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
+            <a class="block py-2 px-3 rounded-lg text-sm bg-blue-600 text-white font-medium" href="leads.html">线索管理</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="customer.html">客户管理</a>
+          </div>
+        </details>
+        <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="#">
+          <i class="fa-solid fa-chart-line w-5 mr-2"></i>销售管理
+        </a>
+        <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="#">
+          <i class="fa-solid fa-file-signature w-5 mr-2"></i>合同订单
+        </a>
+        <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="#">
+          <i class="fa-solid fa-truck-fast w-5 mr-2"></i>交付中心
+        </a>
+        <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="#">
+          <i class="fa-solid fa-book-open w-5 mr-2"></i>知识库
+        </a>
+        <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="#">
+          <i class="fa-solid fa-wallet w-5 mr-2"></i>财务管理
+        </a>
+        <a class="mx-3 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="#">
+          <i class="fa-solid fa-gear w-5 mr-2"></i>系统管理
+        </a>
+      </nav>
+    </aside>
+
+    <main class="flex-1 flex flex-col min-w-0">
+      <header class="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between shrink-0">
+        <div class="text-sm text-slate-500">
+          客户中心 / <span class="text-slate-700 font-medium">线索管理</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <button type="button" class="w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200" aria-label="通知">
+            <i class="fa-regular fa-bell"></i>
+          </button>
+          <button type="button" class="w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200" aria-label="帮助">
+            <i class="fa-solid fa-circle-question"></i>
+          </button>
+          <div class="w-px h-6 bg-slate-200"></div>
+          <div class="flex items-center">
+            <img class="w-9 h-9 rounded-full object-cover" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=80&q=80" alt="用户头像">
+            <div class="ml-2">
+              <p class="text-sm font-medium text-slate-700">朱总</p>
+              <p class="text-xs text-slate-400">企业端</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="p-6 flex-1">
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+          <div class="flex flex-wrap gap-3 items-end">
+            <div class="min-w-[200px]">
+              <label class="block text-xs text-slate-500 mb-1">客户姓名/手机号</label>
+              <input type="text" placeholder="请输入" class="w-full h-9 px-3 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            </div>
+            <div class="min-w-[120px]">
+              <label class="block text-xs text-slate-500 mb-1">所属区域</label>
+              <button type="button" class="w-full h-9 px-3 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 flex items-center justify-between">
+                全部 <i class="fa-solid fa-angle-down text-slate-400 text-xs"></i>
+              </button>
+            </div>
+            <div class="min-w-[120px]">
+              <label class="block text-xs text-slate-500 mb-1">行业类别</label>
+              <button type="button" class="w-full h-9 px-3 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 flex items-center justify-between">
+                全部 <i class="fa-solid fa-angle-down text-slate-400 text-xs"></i>
+              </button>
+            </div>
+            <div class="min-w-[120px]">
+              <label class="block text-xs text-slate-500 mb-1">企业形式</label>
+              <button type="button" class="w-full h-9 px-3 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 flex items-center justify-between">
+                全部 <i class="fa-solid fa-angle-down text-slate-400 text-xs"></i>
+              </button>
+            </div>
+            <div class="min-w-[120px]">
+              <label class="block text-xs text-slate-500 mb-1">来源渠道</label>
+              <button type="button" class="w-full h-9 px-3 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 flex items-center justify-between">
+                全部 <i class="fa-solid fa-angle-down text-slate-400 text-xs"></i>
+              </button>
+            </div>
+            <div class="min-w-[260px]">
+              <label class="block text-xs text-slate-500 mb-1">创建时间</label>
+              <div class="flex items-center gap-2">
+                <input type="text" value="2023-03-21" class="flex-1 h-9 px-2 rounded-lg border border-slate-200 text-sm">
+                <span class="text-slate-400">至</span>
+                <input type="text" value="2024-03-21" class="flex-1 h-9 px-2 rounded-lg border border-slate-200 text-sm">
+              </div>
+            </div>
+            <div class="flex gap-2 pb-0.5">
+              <button type="button" class="h-9 px-5 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700">查询</button>
+              <button type="button" class="h-9 px-5 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 hover:bg-slate-50">重置</button>
+              <button type="button" class="h-9 px-5 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 hover:bg-slate-50">
+                <i class="fa-solid fa-file-export mr-1.5 text-slate-400"></i>全部导出
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-5 flex flex-wrap items-center gap-3">
+            <button type="button" id="btn-open-add-lead" class="h-9 px-4 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700">
+              <i class="fa-solid fa-plus mr-1.5"></i>新增线索
+            </button>
+            <button type="button" class="h-9 px-4 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 hover:bg-slate-50">
+              <i class="fa-solid fa-file-import mr-1.5 text-slate-400"></i>批量导入
+            </button>
+          </div>
+
+          <div class="mt-4 flex gap-6 border-b border-slate-200 text-sm" role="tablist">
+            <button type="button" class="pb-3 text-slate-500 hover:text-slate-700 border-b-2 border-transparent -mb-px">全部</button>
+            <button type="button" class="pb-3 text-blue-600 font-medium border-b-2 border-blue-600 -mb-px" aria-current="page">跟进中</button>
+            <button type="button" class="pb-3 text-slate-500 hover:text-slate-700 border-b-2 border-transparent -mb-px">已成单</button>
+            <button type="button" class="pb-3 text-slate-500 hover:text-slate-700 border-b-2 border-transparent -mb-px">已放弃</button>
+          </div>
+
+          <div class="mt-4 overflow-x-auto rounded-lg border border-slate-200">
+            <table class="w-full text-sm min-w-[1400px] text-left">
+              <thead class="bg-slate-50 text-slate-600 text-xs">
+                <tr>
+                  <th class="px-3 py-3 border-b border-slate-200 w-10"><input type="checkbox" class="rounded border-slate-300" aria-label="全选"></th>
+                  <th class="px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">客户姓名</th>
+                  <th class="px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">手机号码</th>
+                  <th class="px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">所属区域</th>
+                  <th class="px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">行业类别</th>
+                  <th class="px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">企业类型</th>
+                  <th class="px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">来源渠道</th>
+                  <th class="px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">跟进结果</th>
+                  <th class="px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">线索有效</th>
+                  <th class="px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">创建时间</th>
+                  <th class="px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">处理人</th>
+                  <th class="px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">最后一次跟进</th>
+                  <th class="px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">跟进日志</th>
+                  <th class="px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">创建人</th>
+                  <th class="px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap sticky right-0 bg-slate-50">操作</th>
+                </tr>
+              </thead>
+              <tbody class="text-slate-700">
+                <tr class="hover:bg-slate-50/80">
+                  <td class="px-3 py-3 border-b border-slate-100"><input type="checkbox" class="rounded border-slate-300"></td>
+                  <td class="px-3 py-3 border-b border-slate-100">苏苏</td>
+                  <td class="px-3 py-3 border-b border-slate-100 tabular-nums">15900087998</td>
+                  <td class="px-3 py-3 border-b border-slate-100">苏州园区</td>
+                  <td class="px-3 py-3 border-b border-slate-100">贸易</td>
+                  <td class="px-3 py-3 border-b border-slate-100">一般纳税人</td>
+                  <td class="px-3 py-3 border-b border-slate-100">抖音</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><span class="text-amber-600">待分配</span></td>
+                  <td class="px-3 py-3 border-b border-slate-100">是</td>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap tabular-nums">2024-03-21 16:03</td>
+                  <td class="px-3 py-3 border-b border-slate-100">蔡丽</td>
+                  <td class="px-3 py-3 border-b border-slate-100 text-slate-400">—</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><a href="lead-followup.html?status=pending&id=susu" class="text-blue-600 hover:underline">查看详情</a></td>
+                  <td class="px-3 py-3 border-b border-slate-100">凌霄</td>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap sticky right-0 bg-white shadow-[-4px_0_8px_-4px_rgba(0,0,0,0.08)]">
+                    <button type="button" id="btn-open-assign" class="text-blue-600 hover:underline text-sm bg-transparent border-0 cursor-pointer p-0 font-inherit">去分配</button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50/80">
+                  <td class="px-3 py-3 border-b border-slate-100"><input type="checkbox" class="rounded border-slate-300"></td>
+                  <td class="px-3 py-3 border-b border-slate-100">李先生</td>
+                  <td class="px-3 py-3 border-b border-slate-100 tabular-nums">13812345678</td>
+                  <td class="px-3 py-3 border-b border-slate-100">无锡</td>
+                  <td class="px-3 py-3 border-b border-slate-100">医疗器械</td>
+                  <td class="px-3 py-3 border-b border-slate-100">小规模</td>
+                  <td class="px-3 py-3 border-b border-slate-100">小红书</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><span class="text-orange-600">待跟进</span></td>
+                  <td class="px-3 py-3 border-b border-slate-100">有</td>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap tabular-nums">2024-03-18 09:22</td>
+                  <td class="px-3 py-3 border-b border-slate-100">蔡丽</td>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap tabular-nums">2024-04-07 10:53</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><a href="lead-followup.html?status=wait_follow&id=mrli" class="text-blue-600 hover:underline">查看详情</a></td>
+                  <td class="px-3 py-3 border-b border-slate-100">销售A</td>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap sticky right-0 bg-white shadow-[-4px_0_8px_-4px_rgba(0,0,0,0.08)]">
+                    <a href="#" class="text-red-600 hover:underline">催跟进</a>
+                    <span class="text-slate-300 mx-1">|</span>
+                    <button type="button" class="btn-open-follow-note text-slate-600 hover:underline text-sm bg-transparent border-0 cursor-pointer p-0 font-inherit">添加说明</button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50/80">
+                  <td class="px-3 py-3 border-b border-slate-100"><input type="checkbox" class="rounded border-slate-300"></td>
+                  <td class="px-3 py-3 border-b border-slate-100">王敏</td>
+                  <td class="px-3 py-3 border-b border-slate-100 tabular-nums">18605118899</td>
+                  <td class="px-3 py-3 border-b border-slate-100">苏州园区</td>
+                  <td class="px-3 py-3 border-b border-slate-100">科技服务</td>
+                  <td class="px-3 py-3 border-b border-slate-100">一般纳税人</td>
+                  <td class="px-3 py-3 border-b border-slate-100">58同城</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><span class="text-blue-600">跟进中</span></td>
+                  <td class="px-3 py-3 border-b border-slate-100">是</td>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap tabular-nums">2024-03-15 14:08</td>
+                  <td class="px-3 py-3 border-b border-slate-100">周芳林</td>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap tabular-nums">2024-04-05 16:20</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><a href="lead-followup.html?status=following&id=wangmin" class="text-blue-600 hover:underline">查看详情</a></td>
+                  <td class="px-3 py-3 border-b border-slate-100">凌霄</td>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap sticky right-0 bg-white shadow-[-4px_0_8px_-4px_rgba(0,0,0,0.08)]">
+                    <button type="button" id="btn-open-quote" class="text-blue-600 hover:underline text-sm bg-transparent border-0 cursor-pointer p-0 font-inherit">生成报价单</button>
+                    <span class="text-slate-300 mx-1">|</span>
+                    <button type="button" class="btn-open-follow-note text-slate-600 hover:underline text-sm bg-transparent border-0 cursor-pointer p-0 font-inherit">添加说明</button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50/80">
+                  <td class="px-3 py-3 border-b border-slate-100"><input type="checkbox" class="rounded border-slate-300"></td>
+                  <td class="px-3 py-3 border-b border-slate-100">赵倩</td>
+                  <td class="px-3 py-3 border-b border-slate-100 tabular-nums">17705126600</td>
+                  <td class="px-3 py-3 border-b border-slate-100">昆山</td>
+                  <td class="px-3 py-3 border-b border-slate-100">贸易</td>
+                  <td class="px-3 py-3 border-b border-slate-100">小规模</td>
+                  <td class="px-3 py-3 border-b border-slate-100">抖音</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><span class="text-emerald-600">已成单</span></td>
+                  <td class="px-3 py-3 border-b border-slate-100">是</td>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap tabular-nums">2024-02-28 11:45</td>
+                  <td class="px-3 py-3 border-b border-slate-100">周芳林</td>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap tabular-nums">2024-03-30 09:00</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><a href="lead-followup.html?status=won&id=zhaoqian" class="text-blue-600 hover:underline">查看详情</a></td>
+                  <td class="px-3 py-3 border-b border-slate-100">销售A</td>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap sticky right-0 bg-white shadow-[-4px_0_8px_-4px_rgba(0,0,0,0.08)]">
+                    <span class="text-slate-400">—</span>
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50/80">
+                  <td class="px-3 py-3 border-b border-slate-100"><input type="checkbox" class="rounded border-slate-300"></td>
+                  <td class="px-3 py-3 border-b border-slate-100">陈浩</td>
+                  <td class="px-3 py-3 border-b border-slate-100 tabular-nums">13900011223</td>
+                  <td class="px-3 py-3 border-b border-slate-100">无锡</td>
+                  <td class="px-3 py-3 border-b border-slate-100">制造</td>
+                  <td class="px-3 py-3 border-b border-slate-100">一般纳税人</td>
+                  <td class="px-3 py-3 border-b border-slate-100">小红书</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><span class="text-slate-500">已放弃</span></td>
+                  <td class="px-3 py-3 border-b border-slate-100">非目标</td>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap tabular-nums">2024-01-10 08:12</td>
+                  <td class="px-3 py-3 border-b border-slate-100">蔡丽</td>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap tabular-nums">2024-02-01 15:40</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><a href="lead-followup.html?status=abandoned&id=chenhao" class="text-blue-600 hover:underline">查看详情</a></td>
+                  <td class="px-3 py-3 border-b border-slate-100">凌霄</td>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap sticky right-0 bg-white shadow-[-4px_0_8px_-4px_rgba(0,0,0,0.08)]">
+                    <span class="text-slate-400">—</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-4 flex flex-wrap items-center justify-end gap-2 text-sm">
+            <button type="button" class="h-8 w-8 rounded border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 disabled:opacity-40" disabled aria-label="上一页">
+              <i class="fa-solid fa-angle-left"></i>
+            </button>
+            <button type="button" class="h-8 min-w-8 px-2 rounded bg-blue-600 text-white font-medium">1</button>
+            <button type="button" class="h-8 min-w-8 px-2 rounded border border-slate-200 bg-white text-slate-600 hover:bg-slate-50">2</button>
+            <button type="button" class="h-8 min-w-8 px-2 rounded border border-slate-200 bg-white text-slate-600 hover:bg-slate-50">3</button>
+            <button type="button" class="h-8 min-w-8 px-2 rounded border border-slate-200 bg-white text-slate-600 hover:bg-slate-50">4</button>
+            <button type="button" class="h-8 min-w-8 px-2 rounded border border-slate-200 bg-white text-slate-400">…</button>
+            <button type="button" class="h-8 min-w-8 px-2 rounded border border-slate-200 bg-white text-slate-600 hover:bg-slate-50">19</button>
+            <button type="button" class="h-8 min-w-8 px-2 rounded border border-slate-200 bg-white text-slate-600 hover:bg-slate-50">20</button>
+            <button type="button" class="h-8 w-8 rounded border border-slate-200 bg-white text-slate-500 hover:bg-slate-50" aria-label="下一页">
+              <i class="fa-solid fa-angle-right"></i>
+            </button>
+            <span class="text-slate-500 ml-2">共 386 条</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- 新增线索弹窗 -->
+  <div id="modal-add-lead" class="hidden fixed inset-0 z-[100] items-center justify-center p-4 bg-slate-900/45" role="dialog" aria-modal="true" aria-labelledby="modal-add-lead-title">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-hidden flex flex-col border border-slate-200">
+      <div class="relative flex items-center justify-center h-14 px-4 border-b border-slate-100 shrink-0">
+        <h2 id="modal-add-lead-title" class="text-base font-semibold text-slate-800">新增线索</h2>
+        <button type="button" id="btn-close-add-lead" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 flex items-center justify-center" aria-label="关闭">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form id="form-add-lead" class="overflow-y-auto flex-1 px-6 py-4 space-y-1">
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">姓名 <span class="text-red-500">*</span></label>
+          <div class="flex-1 relative min-w-0">
+            <input id="lead-name" type="text" maxlength="5" placeholder="请输入内容" class="w-full h-10 pl-3 pr-14 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 tabular-nums pointer-events-none"><span id="cnt-name">0</span>/5</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">手机号 <span class="text-red-500">*</span></label>
+          <div class="flex-1 relative min-w-0">
+            <input id="lead-phone" type="text" maxlength="11" inputmode="numeric" placeholder="请输入内容" class="w-full h-10 pl-3 pr-16 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 tabular-nums pointer-events-none"><span id="cnt-phone">0</span>/11</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">所属区域</label>
+          <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <option selected>苏州市/工业园区</option>
+            <option>无锡市/新吴区</option>
+            <option>昆山市</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">行业类别</label>
+          <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <option selected>医疗器械</option>
+            <option>贸易</option>
+            <option>科技服务</option>
+            <option>制造</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">企业形式</label>
+          <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <option selected>一般纳税人</option>
+            <option>小规模</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">业务类型</label>
+          <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <option value="">请选择</option>
+            <option>代理记账</option>
+            <option>工商注册</option>
+            <option>税务筹划</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">来源渠道 <span class="text-red-500">*</span></label>
+          <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <option selected>抖音</option>
+            <option>小红书</option>
+            <option>58同城</option>
+            <option>老客户介绍</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">流转处理 <span class="text-red-500">*</span></label>
+          <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <option selected>销售主管</option>
+            <option>销售一组</option>
+            <option>销售二组</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-4 min-h-11">
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">备注</label>
+          <div class="flex-1 relative min-w-0">
+            <input id="lead-remark" type="text" maxlength="30" placeholder="请输入内容" class="w-full h-10 pl-3 pr-16 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 tabular-nums pointer-events-none"><span id="cnt-remark">0</span>/30</span>
+          </div>
+        </div>
+      </form>
+      <div class="flex justify-end gap-3 px-6 py-4 border-t border-slate-100 bg-slate-50/80 shrink-0">
+        <button type="button" id="btn-cancel-add-lead" class="h-10 px-6 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 hover:bg-slate-50">取消</button>
+        <button type="button" id="btn-save-add-lead" class="h-10 px-6 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 线索分配 -->
+  <div id="modal-assign-lead" class="hidden fixed inset-0 z-[100] items-center justify-center p-4 bg-slate-900/45" role="dialog" aria-modal="true" aria-labelledby="modal-assign-title">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-hidden flex flex-col border border-slate-200">
+      <div class="relative flex items-center justify-center h-14 px-4 border-b border-slate-100 shrink-0">
+        <h2 id="modal-assign-title" class="text-base font-semibold text-slate-800">线索分配</h2>
+        <button type="button" class="btn-close-assign w-9 h-9 absolute right-3 top-1/2 -translate-y-1/2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 flex items-center justify-center" aria-label="关闭">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <div class="px-6 py-5 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <label class="text-sm text-slate-700 shrink-0 sm:w-28">流转处理 <span class="text-red-500">*</span></label>
+          <div class="flex-1 min-w-0 relative">
+            <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+              <option selected>周方林</option>
+              <option>蔡丽</option>
+              <option>周倩</option>
+              <option>销售一组（池）</option>
+            </select>
+            <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center gap-3 px-6 py-4 border-t border-slate-100 bg-slate-50/80 shrink-0">
+        <button type="button" id="btn-confirm-assign" class="h-10 px-8 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700">确认</button>
+        <button type="button" class="btn-close-assign h-10 px-8 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 hover:bg-slate-50">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 报价单 / 生成报价单 -->
+  <div id="modal-quote" class="hidden fixed inset-0 z-[100] items-center justify-center p-4 bg-slate-900/45" role="dialog" aria-modal="true" aria-labelledby="modal-quote-title">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[92vh] overflow-hidden flex flex-col border border-slate-200">
+      <div class="relative flex items-center justify-center h-14 px-4 border-b border-slate-100 shrink-0">
+        <h2 id="modal-quote-title" class="text-base font-semibold text-slate-800">报价单</h2>
+        <button type="button" class="btn-close-quote w-9 h-9 absolute right-3 top-1/2 -translate-y-1/2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 flex items-center justify-center" aria-label="关闭">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <div class="overflow-y-auto flex-1 px-6 py-5 space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm text-slate-700 mb-1.5">报价人 <span class="text-red-500">*</span></label>
+            <div class="relative">
+              <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                <option selected>周方林</option>
+                <option>蔡丽</option>
+                <option>刘涛</option>
+              </select>
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm text-slate-700 mb-1.5">有效期 <span class="text-red-500">*</span></label>
+            <div class="relative">
+              <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                <option selected>7天</option>
+                <option>15天</option>
+                <option>30天</option>
+              </select>
+              <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm text-slate-700 mb-1.5">客户信息</label>
+          <textarea rows="3" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm text-slate-800 bg-slate-50/80 resize-y focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">这是客户信息。企业名称：王敏科技服务工作室；纳税人类型：一般纳税人；主要诉求：代理记账 + 年度汇算辅助。</textarea>
+        </div>
+
+        <!-- 代理记账 -->
+        <section class="border-t border-dashed border-slate-200 pt-4">
+          <div class="flex items-center justify-between gap-3 mb-3">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="w-0.5 h-4 rounded-full bg-blue-500 shrink-0"></span>
+              <span class="text-sm font-medium text-slate-800">代理记账</span>
+            </div>
+            <label class="inline-flex cursor-pointer items-center shrink-0">
+              <input type="checkbox" id="toggle-quote-bookkeeping" class="quote-proj-toggle peer sr-only" data-panel="panel-quote-bookkeeping" checked>
+              <span class="relative h-6 w-11 shrink-0 rounded-full bg-slate-200 transition-colors after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow after:transition-transform after:content-[''] peer-checked:bg-blue-500 peer-checked:after:translate-x-5"></span>
+            </label>
+          </div>
+          <div id="panel-quote-bookkeeping" class="space-y-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs text-slate-600 mb-1">代账套餐 <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                    <option value="">请选择</option>
+                    <option>基础记账套餐</option>
+                    <option>标准记账套餐</option>
+                    <option>旗舰记账套餐</option>
+                  </select>
+                  <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs text-slate-600 mb-1">合同时长 <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                    <option selected>7天</option>
+                    <option>1个月</option>
+                    <option>3个月</option>
+                    <option>12个月</option>
+                  </select>
+                  <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs text-slate-600 mb-1">赠送月份 <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                    <option selected>不赠送</option>
+                    <option>赠送1个月</option>
+                    <option>赠送2个月</option>
+                  </select>
+                  <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs text-slate-600 mb-1">优惠减免 <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <select id="quote-discount" class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                    <option value="no" selected>无</option>
+                    <option value="yes">有</option>
+                  </select>
+                  <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                </div>
+              </div>
+            </div>
+            <div id="row-quote-discount-amt" class="hidden">
+              <label class="block text-xs text-slate-600 mb-1">减免金额 (元) <span class="text-red-500">*</span></label>
+              <input type="text" value="1000" class="w-full sm:max-w-xs h-10 px-3 rounded-lg border border-slate-200 text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            </div>
+          </div>
+        </section>
+
+        <!-- 注册地址 -->
+        <section class="border-t border-dashed border-slate-200 pt-4">
+          <div class="flex items-center justify-between gap-3 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-0.5 h-4 rounded-full bg-blue-500 shrink-0"></span>
+              <span class="text-sm font-medium text-slate-800">注册地址</span>
+            </div>
+            <label class="inline-flex cursor-pointer items-center shrink-0">
+              <input type="checkbox" id="toggle-quote-address" class="quote-proj-toggle peer sr-only" data-panel="panel-quote-address" checked>
+              <span class="relative h-6 w-11 shrink-0 rounded-full bg-slate-200 transition-colors after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow after:transition-transform after:content-[''] peer-checked:bg-blue-500 peer-checked:after:translate-x-5"></span>
+            </label>
+          </div>
+          <div id="panel-quote-address" class="space-y-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs text-slate-600 mb-1">金额 <span class="text-red-500">*</span></label>
+                <input type="text" placeholder="请输入" class="w-full h-10 px-3 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+              </div>
+              <div>
+                <label class="block text-xs text-slate-600 mb-1">服务期限 <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+                    <option selected>一次性</option>
+                    <option>按年续费</option>
+                  </select>
+                  <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs text-slate-600 mb-1">备注</label>
+              <input type="text" value="不赠送" class="w-full h-10 px-3 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            </div>
+          </div>
+        </section>
+
+        <!-- 增值服务 -->
+        <section class="border-t border-dashed border-slate-200 pt-4">
+          <div class="flex items-center justify-between gap-3 mb-3">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="w-0.5 h-4 rounded-full bg-blue-500 shrink-0"></span>
+              <span class="text-sm font-medium text-slate-800">增值服务</span>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+              <button type="button" id="btn-quote-va-add" class="text-sm text-blue-600 hover:text-blue-700 font-medium hidden">+ 新增服务</button>
+              <label class="inline-flex cursor-pointer items-center">
+                <input type="checkbox" id="toggle-quote-va" class="quote-proj-toggle peer sr-only" data-panel="panel-quote-va" checked>
+                <span class="relative h-6 w-11 shrink-0 rounded-full bg-slate-200 transition-colors after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow after:transition-transform after:content-[''] peer-checked:bg-blue-500 peer-checked:after:translate-x-5"></span>
+              </label>
+            </div>
+          </div>
+          <div id="panel-quote-va" class="space-y-0">
+            <div id="va-rows" class="space-y-3"></div>
+          </div>
+        </section>
+
+        <div>
+          <label class="block text-sm text-slate-700 mb-1.5">报价备注</label>
+          <textarea rows="3" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm text-slate-800 bg-slate-50/80 resize-y focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">这是备注信息。含服务边界、报价有效期说明及可选增项清单。</textarea>
+        </div>
+      </div>
+      <div class="flex justify-center gap-3 px-6 py-4 border-t border-slate-100 bg-slate-50/80 shrink-0">
+        <button type="button" id="btn-confirm-quote" class="h-10 px-6 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700">生成报价单</button>
+        <button type="button" class="btn-close-quote h-10 px-6 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 hover:bg-slate-50">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 添加跟进（列表「添加说明」入口） -->
+  <div id="modal-follow-note" class="hidden fixed inset-0 z-[100] items-center justify-center p-4 bg-slate-900/45" role="dialog" aria-modal="true" aria-labelledby="modal-follow-note-title">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-hidden flex flex-col border border-slate-200">
+      <div class="relative flex items-center justify-center h-14 px-4 border-b border-slate-100 shrink-0">
+        <h2 id="modal-follow-note-title" class="text-base font-semibold text-slate-800">添加跟进</h2>
+        <button type="button" class="btn-close-follow-note w-9 h-9 absolute right-3 top-1/2 -translate-y-1/2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 flex items-center justify-center" aria-label="关闭">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form id="form-follow-note" class="overflow-y-auto flex-1 px-6 py-5 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <label class="w-full sm:w-28 shrink-0 text-sm text-slate-600 sm:text-right">跟进进度 <span class="text-red-500">*</span></label>
+          <div class="flex-1 min-w-0 relative">
+            <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+              <option value="following" selected>跟进中</option>
+              <option value="quote">已发报价</option>
+              <option value="negotiate">磋商中</option>
+              <option value="pending_sign">待签约</option>
+            </select>
+            <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <label class="w-full sm:w-28 shrink-0 text-sm text-slate-600 sm:text-right">跟进时间 <span class="text-red-500">*</span></label>
+          <div class="flex-1 min-w-0 relative">
+            <input id="modal-follow-time" type="text" value="2026-04-07 10:09" class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 tabular-nums focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+            <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4">
+          <label class="w-full sm:w-28 shrink-0 text-sm text-slate-600 sm:text-right pt-2">跟进内容 <span class="text-red-500">*</span></label>
+          <div class="flex-1 min-w-0 relative">
+            <textarea id="follow-note-content" maxlength="1000" rows="5" placeholder="请输入内容" class="w-full px-3 py-2.5 pb-8 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 resize-y min-h-[140px] focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400 bg-slate-50/80"></textarea>
+            <span class="absolute bottom-2 right-3 text-xs text-slate-400 tabular-nums pointer-events-none"><span id="cnt-follow-note">0</span>/1000</span>
+          </div>
+        </div>
+      </form>
+      <div class="flex justify-center gap-3 px-6 py-4 border-t border-slate-100 bg-slate-50/80 shrink-0">
+        <button type="button" id="btn-confirm-follow-note" class="h-10 px-8 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700">确认</button>
+        <button type="button" class="btn-close-follow-note h-10 px-8 rounded-lg border border-slate-200 bg-white text-sm text-slate-600 hover:bg-slate-50">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-success" class="fixed top-6 left-1/2 -translate-x-1/2 z-[110] hidden px-5 py-2.5 rounded-lg bg-slate-800 text-white text-sm shadow-lg" role="status">新增成功</div>
+
+  <script>
+    (function () {
+      var modal = document.getElementById('modal-add-lead');
+      var mAssign = document.getElementById('modal-assign-lead');
+      var mQuote = document.getElementById('modal-quote');
+      var mNote = document.getElementById('modal-follow-note');
+      var openBtn = document.getElementById('btn-open-add-lead');
+      var closeBtn = document.getElementById('btn-close-add-lead');
+      var cancelBtn = document.getElementById('btn-cancel-add-lead');
+      var saveBtn = document.getElementById('btn-save-add-lead');
+      var toast = document.getElementById('toast-success');
+      var nameIn = document.getElementById('lead-name');
+      var phoneIn = document.getElementById('lead-phone');
+      var remarkIn = document.getElementById('lead-remark');
+      var cntName = document.getElementById('cnt-name');
+      var cntPhone = document.getElementById('cnt-phone');
+      var cntRemark = document.getElementById('cnt-remark');
+      var noteTa = document.getElementById('follow-note-content');
+      var cntNote = document.getElementById('cnt-follow-note');
+      var toastTimer;
+
+      function syncBodyScroll() {
+        var any = false;
+        if (modal && !modal.classList.contains('hidden')) any = true;
+        if (mAssign && !mAssign.classList.contains('hidden')) any = true;
+        if (mQuote && !mQuote.classList.contains('hidden')) any = true;
+        if (mNote && !mNote.classList.contains('hidden')) any = true;
+        document.body.classList.toggle('overflow-hidden', any);
+      }
+
+      function openModal() {
+        modal.classList.remove('hidden');
+        syncBodyScroll();
+      }
+
+      function closeModal() {
+        modal.classList.add('hidden');
+        syncBodyScroll();
+      }
+
+      function openAssign() {
+        mAssign.classList.remove('hidden');
+        syncBodyScroll();
+      }
+
+      function closeAssign() {
+        mAssign.classList.add('hidden');
+        syncBodyScroll();
+      }
+
+      function openQuote() {
+        mQuote.classList.remove('hidden');
+        syncBodyScroll();
+      }
+
+      function closeQuote() {
+        mQuote.classList.add('hidden');
+        syncBodyScroll();
+      }
+
+      function openFollowNote() {
+        mNote.classList.remove('hidden');
+        syncBodyScroll();
+      }
+
+      function closeFollowNote() {
+        mNote.classList.add('hidden');
+        syncBodyScroll();
+      }
+
+      function showToast(message) {
+        if (message) toast.textContent = message;
+        toast.classList.remove('hidden');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toast.classList.add('hidden');
+        }, 2200);
+      }
+
+      function syncCounters() {
+        if (cntName && nameIn) cntName.textContent = String(nameIn.value.length);
+        if (cntPhone && phoneIn) cntPhone.textContent = String(phoneIn.value.length);
+        if (cntRemark && remarkIn) cntRemark.textContent = String(remarkIn.value.length);
+      }
+
+      function syncNoteCounter() {
+        if (cntNote && noteTa) cntNote.textContent = String(noteTa.value.length);
+      }
+
+      function createVaRow() {
+        var el = document.createElement('div');
+        el.className = 'va-row border border-slate-200 rounded-lg p-4 space-y-3 bg-slate-50/50';
+        el.innerHTML =
+          '<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">' +
+            '<div><label class="block text-xs text-slate-600 mb-1">产品名称 <span class="text-red-500">*</span></label><div class="relative"><select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400"><option value="">请选择</option><option>工商变更代办</option><option>税控托管</option><option>财务顾问上门</option><option>审计配合</option></select><i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i></div></div>' +
+            '<div><label class="block text-xs text-slate-600 mb-1">金额 (元) <span class="text-red-500">*</span></label><input type="text" value="500.00" class="w-full h-10 px-3 rounded-lg border border-slate-200 text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400"></div>' +
+            '<div><label class="block text-xs text-slate-600 mb-1">优惠金额 (元)</label><input type="text" placeholder="请输入" class="w-full h-10 px-3 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400"></div>' +
+            '<div><label class="block text-xs text-slate-600 mb-1">备注</label><input type="text" placeholder="请输入" class="w-full h-10 px-3 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400"></div>' +
+          '</div>' +
+          '<div class="flex flex-wrap gap-4 text-sm pt-1">' +
+            '<button type="button" class="va-row-remove text-red-600 hover:underline">× 删除服务</button>' +
+            '<button type="button" class="va-row-add text-blue-600 hover:underline">+ 新增服务</button>' +
+          '</div>';
+        return el;
+      }
+
+      function syncQuotePanel(checkbox) {
+        var id = checkbox.getAttribute('data-panel');
+        var panel = document.getElementById(id);
+        if (!panel) return;
+        if (checkbox.checked) {
+          panel.classList.remove('hidden');
+        } else {
+          panel.classList.add('hidden');
+        }
+        if (id === 'panel-quote-va') {
+          var hdrBtn = document.getElementById('btn-quote-va-add');
+          if (hdrBtn) hdrBtn.classList.toggle('hidden', !checkbox.checked);
+        }
+      }
+
+      function syncDiscountRow() {
+        var sel = document.getElementById('quote-discount');
+        var row = document.getElementById('row-quote-discount-amt');
+        if (!sel || !row) return;
+        row.classList.toggle('hidden', sel.value !== 'yes');
+      }
+
+      function initQuoteModalInteractions() {
+        document.querySelectorAll('.quote-proj-toggle').forEach(function (cb) {
+          cb.addEventListener('change', function () {
+            syncQuotePanel(this);
+          });
+          syncQuotePanel(cb);
+        });
+        var disc = document.getElementById('quote-discount');
+        if (disc) {
+          disc.addEventListener('change', syncDiscountRow);
+          syncDiscountRow();
+        }
+        var vaRows = document.getElementById('va-rows');
+        if (vaRows && !vaRows.dataset.ready) {
+          vaRows.appendChild(createVaRow());
+          vaRows.appendChild(createVaRow());
+          vaRows.appendChild(createVaRow());
+          vaRows.dataset.ready = '1';
+        }
+        if (vaRows) {
+          vaRows.addEventListener('click', function (e) {
+            var btn = e.target.closest('button');
+            if (!btn) return;
+            if (btn.classList.contains('va-row-remove')) {
+              if (vaRows.querySelectorAll('.va-row').length <= 1) return;
+              btn.closest('.va-row').remove();
+              return;
+            }
+            if (btn.classList.contains('va-row-add')) {
+              if (vaRows.querySelectorAll('.va-row').length >= 20) return;
+              vaRows.appendChild(createVaRow());
+            }
+          });
+        }
+        var hdrAdd = document.getElementById('btn-quote-va-add');
+        if (hdrAdd) {
+          hdrAdd.addEventListener('click', function () {
+            var r = document.getElementById('va-rows');
+            if (r && r.querySelectorAll('.va-row').length < 20) {
+              r.appendChild(createVaRow());
+            }
+          });
+        }
+      }
+
+      initQuoteModalInteractions();
+
+      if (openBtn) openBtn.addEventListener('click', openModal);
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+      if (modal) {
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal) closeModal();
+        });
+      }
+      if (nameIn) nameIn.addEventListener('input', syncCounters);
+      if (phoneIn) phoneIn.addEventListener('input', syncCounters);
+      if (remarkIn) remarkIn.addEventListener('input', syncCounters);
+
+      if (saveBtn) {
+        saveBtn.addEventListener('click', function () {
+          showToast('新增成功');
+          closeModal();
+        });
+      }
+
+      var btnAssign = document.getElementById('btn-open-assign');
+      if (btnAssign) btnAssign.addEventListener('click', openAssign);
+      if (mAssign) {
+        mAssign.addEventListener('click', function (e) {
+          if (e.target === mAssign) closeAssign();
+        });
+        mAssign.querySelectorAll('.btn-close-assign').forEach(function (b) {
+          b.addEventListener('click', closeAssign);
+        });
+      }
+      var confirmAssign = document.getElementById('btn-confirm-assign');
+      if (confirmAssign) {
+        confirmAssign.addEventListener('click', function () {
+          showToast('提交成功');
+          closeAssign();
+        });
+      }
+
+      var btnQuote = document.getElementById('btn-open-quote');
+      if (btnQuote) btnQuote.addEventListener('click', openQuote);
+      if (mQuote) {
+        mQuote.addEventListener('click', function (e) {
+          if (e.target === mQuote) closeQuote();
+        });
+        mQuote.querySelectorAll('.btn-close-quote').forEach(function (b) {
+          b.addEventListener('click', closeQuote);
+        });
+      }
+      var confirmQuote = document.getElementById('btn-confirm-quote');
+      if (confirmQuote) {
+        confirmQuote.addEventListener('click', function () {
+          showToast('提交成功');
+          closeQuote();
+        });
+      }
+
+      document.querySelectorAll('.btn-open-follow-note').forEach(function (b) {
+        b.addEventListener('click', openFollowNote);
+      });
+      if (mNote) {
+        mNote.addEventListener('click', function (e) {
+          if (e.target === mNote) closeFollowNote();
+        });
+        mNote.querySelectorAll('.btn-close-follow-note').forEach(function (b) {
+          b.addEventListener('click', closeFollowNote);
+        });
+      }
+      if (noteTa) noteTa.addEventListener('input', syncNoteCounter);
+      var confirmNote = document.getElementById('btn-confirm-follow-note');
+      if (confirmNote) {
+        confirmNote.addEventListener('click', function () {
+          showToast('提交成功');
+          closeFollowNote();
+        });
+      }
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key !== 'Escape') return;
+        if (mNote && !mNote.classList.contains('hidden')) {
+          closeFollowNote();
+          return;
+        }
+        if (mQuote && !mQuote.classList.contains('hidden')) {
+          closeQuote();
+          return;
+        }
+        if (mAssign && !mAssign.classList.contains('hidden')) {
+          closeAssign();
+          return;
+        }
+        if (modal && !modal.classList.contains('hidden')) closeModal();
+      });
+    })();
+  </script>
+</body>
+</html>
