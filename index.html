@@ -1,9 +1,9 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>企税康 - 协同工作平台</title>
+  <title>企税- 协同工作平台</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
@@ -24,36 +24,66 @@
 
       <nav class="flex-1 py-4 text-sm">
         <a class="mx-3 mb-1 h-10 px-4 rounded-lg bg-blue-600 text-white flex items-center" href="index.html">
-          <i class="fa-solid fa-table-columns w-5 mr-2"></i>工作台
-        </a>
+          <i class="fa-solid fa-table-columns w-5 mr-2"></i>工作台        </a>
         <details class="mx-3 mb-1 group">
           <summary class="list-none cursor-pointer h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center justify-between text-slate-200 [&::-webkit-details-marker]:hidden">
-            <span class="flex items-center"><i class="fa-solid fa-users w-5 mr-2"></i>客户中心</span>
+            <span class="flex items-center"><i class="fa-solid fa-building-user w-5 mr-2"></i>客户中心</span>
             <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
           </summary>
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="leads.html">线索管理</a>
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="customer.html">客户管理</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="lead-management.html">线索管理</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="customer-management.html">客户管理</a>
+          </div>
+        </details>
+        <details class="mx-3 mb-1 group">
+          <summary class="list-none cursor-pointer h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center justify-between text-slate-200 [&::-webkit-details-marker]:hidden">
+            <span class="flex items-center"><i class="fa-solid fa-chart-line w-5 mr-2"></i>销售管理</span>
+            <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="sales-performance.html">销售业绩</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="sales-target.html">销售目标</a>
+          </div>
+        </details>
+        <details class="mx-3 mb-1 group">
+          <summary class="list-none cursor-pointer h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center justify-between text-slate-200 [&::-webkit-details-marker]:hidden">
+            <span class="flex items-center"><i class="fa-solid fa-file-signature w-5 mr-2"></i>合同订单</span>
+            <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="contract-management.html">合同管理</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="order-management.html">订单管理</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="invoice-management.html">开票管理</a>
           </div>
         </details>
         <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="#">
-          <i class="fa-solid fa-chart-line w-5 mr-2"></i>销售管理
-        </a>
-        <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="#">
-          <i class="fa-solid fa-file-signature w-5 mr-2"></i>合同订单
-        </a>
-        <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="#">
           <i class="fa-solid fa-truck-fast w-5 mr-2"></i>交付中心
         </a>
-        <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="#">
-          <i class="fa-solid fa-book-open w-5 mr-2"></i>知识库
-        </a>
-        <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="#">
-          <i class="fa-solid fa-wallet w-5 mr-2"></i>财务管理
-        </a>
-        <a class="mx-3 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="#">
-          <i class="fa-solid fa-gear w-5 mr-2"></i>系统管理
-        </a>
+        <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="knowledge-base.html">
+          <i class="fa-solid fa-book-open w-5 mr-2"></i>知识库        </a>
+        <details class="mx-3 mb-1 group">
+          <summary class="list-none cursor-pointer h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center justify-between text-slate-200 [&::-webkit-details-marker]:hidden">
+            <span class="flex items-center"><i class="fa-solid fa-wallet w-5 mr-2"></i>财务管理</span>
+            <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="payment-request.html">用款申请</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="financial-reports.html">财务报表</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="salary-management.html">薪酬管理</a>
+          </div>
+        </details>
+        <details class="mx-3 mb-1 group">
+          <summary class="list-none cursor-pointer h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center justify-between text-slate-200 [&::-webkit-details-marker]:hidden">
+            <span class="flex items-center"><i class="fa-solid fa-gear w-5 mr-2"></i>系统管理</span>
+            <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="role-permissions.html">角色权限</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="department-employees.html">部门员工</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="approval-center.html">审批中心</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="dictionary-management.html">字典管理</a>
+          </div>
+        </details>
       </nav>
     </aside>
 
@@ -84,7 +114,7 @@
         <div class="rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-400 p-6 text-white shadow-sm">
           <div>
             <p class="text-lg font-semibold">你好，朱总，欢迎回到企税康</p>
-            <p class="text-blue-50 mt-1 text-sm">今日待处理事项 9 项。</p>
+            <p class="text-blue-50 mt-1 text-sm">今日待处理事项 9 项</p>
           </div>
         </div>
 
@@ -108,12 +138,12 @@
                   </div>
                   <p class="text-sm font-medium text-slate-700">新增跟进说明</p>
                 </button>
-                <a class="rounded-lg border border-slate-200 p-3 hover:border-blue-300 hover:bg-blue-50 transition" href="#">
+                <button type="button" id="btn-open-create-contract" class="w-full text-left rounded-lg border border-slate-200 p-3 hover:border-blue-300 hover:bg-blue-50 transition">
                   <div class="w-9 h-9 rounded-lg bg-sky-100 text-sky-500 flex items-center justify-center mb-2">
                     <i class="fa-solid fa-comments"></i>
                   </div>
                   <p class="text-sm font-medium text-slate-700">发起合同签署</p>
-                </a>
+                </button>
                 <button type="button" id="btn-open-maintain" class="w-full text-left rounded-lg border border-slate-200 p-3 hover:border-blue-300 hover:bg-blue-50 transition">
                   <div class="w-9 h-9 rounded-lg bg-amber-100 text-amber-500 flex items-center justify-center mb-2">
                     <i class="fa-solid fa-folder-plus"></i>
@@ -168,11 +198,11 @@
                 </div>
                 <div class="bg-slate-50 rounded-lg p-3">
                   <div class="flex items-center justify-between">
-                    <p class="text-xs text-slate-500">线索转化率</p>
+                    <p class="text-xs text-slate-500">线索转化</p>
                     <div class="w-11 h-11 rounded-full" style="background:conic-gradient(#22c55e 0 65%, #dcfce7 65% 100%);"></div>
                   </div>
                   <p class="text-2xl font-semibold text-slate-800 mt-2">65%</p>
-                  <p class="text-xs text-slate-500 mt-1">已交付 39 / 60 项</p>
+                  <p class="text-xs text-slate-500 mt-1">已成交39 / 60 </p>
                 </div>
               </div>
             </section>
@@ -180,8 +210,7 @@
             <section class="bg-white rounded-xl p-5 border border-slate-200">
               <div class="flex items-center justify-between mb-4">
                 <h2 class="text-base font-semibold text-slate-800 flex items-center">
-                  <span class="w-1 h-4 rounded bg-cyan-500 mr-2"></span>工作简报
-                </h2>
+                  <span class="w-1 h-4 rounded bg-cyan-500 mr-2"></span>工作简报                </h2>
                 <div class="flex items-center gap-2">
                   <button class="h-9 min-w-24 px-3 rounded border border-slate-200 bg-slate-50 text-slate-500 text-sm flex items-center justify-between">
                     <span>全部</span>
@@ -212,11 +241,11 @@
                 </div>
                 <div class="border border-slate-200 rounded-lg p-4 flex items-center gap-3 shadow-sm">
                   <div class="w-11 h-11 rounded-lg bg-blue-500 text-white flex items-center justify-center"><i class="fa-regular fa-address-card"></i></div>
-                  <div><p class="text-2xl leading-6 text-slate-700">27</p><p class="text-sm text-slate-500 mt-1">合同审核中</p></div>
+                  <div><p class="text-2xl leading-6 text-slate-700">27</p><p class="text-sm text-slate-500 mt-1">合同审核</p></div>
                 </div>
                 <div class="border border-slate-200 rounded-lg p-4 flex items-center gap-3 shadow-sm">
-                  <div class="w-11 h-11 rounded-lg bg-blue-500 text-white flex items-center justify-center"><i class="fa-regular fa-file-signature"></i></div>
-                  <div><p class="text-2xl leading-6 text-slate-700">27</p><p class="text-sm text-slate-500 mt-1">合同待签署</p></div>
+                  <div class="w-11 h-11 rounded-lg bg-blue-500 text-white flex items-center justify-center"><i class="fa-solid fa-file-signature"></i></div>
+                  <div><p class="text-2xl leading-6 text-slate-700">27</p><p class="text-sm text-slate-500 mt-1">合同待签</p></div>
                 </div>
                 <div class="border border-slate-200 rounded-lg p-4 flex items-center gap-3 shadow-sm">
                   <div class="w-11 h-11 rounded-lg bg-blue-500 text-white flex items-center justify-center"><i class="fa-solid fa-file-invoice-dollar"></i></div>
@@ -296,7 +325,7 @@
                           <td class="px-4 py-3 border border-slate-200">代理记账</td>
                           <td class="px-4 py-3 border border-slate-200">代理记账</td>
                           <td class="px-4 py-3 border border-slate-200">待派单</td>
-                          <td class="px-4 py-3 border border-slate-200">马氏绢</td>
+                          <td class="px-4 py-3 border border-slate-200">马氏</td>
                           <td class="px-4 py-3 border border-slate-200">伊一</td>
                         </tr>
                         <tr>
@@ -333,22 +362,22 @@
                 <li class="flex gap-2">
                   <i class="fa-regular fa-file-lines text-blue-500 mt-1"></i>
                   <div>
-                    <p class="text-slate-700">关于客户涉税申诉处理指引（2026 版）</p>
-                    <p class="text-xs text-slate-400 mt-1">更新于 2026-05-04</p>
+                    <p class="text-slate-700">关于客户涉税申诉处理指引026 版）</p>
+                    <p class="text-xs text-slate-400 mt-1">更新2026-05-04</p>
                   </div>
                 </li>
                 <li class="flex gap-2">
                   <i class="fa-regular fa-file-lines text-blue-500 mt-1"></i>
                   <div>
                     <p class="text-slate-700">开票异常问题排查与工单升级规范</p>
-                    <p class="text-xs text-slate-400 mt-1">更新于 2026-05-02</p>
+                    <p class="text-xs text-slate-400 mt-1">更新2026-05-02</p>
                   </div>
                 </li>
                 <li class="flex gap-2">
                   <i class="fa-regular fa-file-lines text-blue-500 mt-1"></i>
                   <div>
                     <p class="text-slate-700">企业税务健康体检服务操作手册</p>
-                    <p class="text-xs text-slate-400 mt-1">更新于 2026-04-30</p>
+                    <p class="text-xs text-slate-400 mt-1">更新2026-04-30</p>
                   </div>
                 </li>
               </ul>
@@ -366,15 +395,15 @@
                 </li>
                 <li class="flex justify-between items-center p-2 rounded bg-amber-50">
                   <span>用税申请审批：深圳分公司</span>
-                  <a class="text-xs text-amber-600" href="#">去审批</a>
+                  <a class="text-xs text-amber-600" href="#">去审核</a>
                 </li>
                 <li class="flex justify-between items-center p-2 rounded bg-blue-50">
-                  <span>客户回访：江南生物本周复盘</span>
+                  <span>客户回访：江南生物本周复</span>
                   <a class="text-xs text-blue-600" href="#">去跟进</a>
                 </li>
                 <li class="flex justify-between items-center p-2 rounded bg-violet-50">
                   <span>资料补齐：园区企业税控托管授权书</span>
-                  <a class="text-xs text-violet-600" href="#">去补充</a>
+                  <a class="text-xs text-violet-600" href="#">去补录</a>
                 </li>
                 <li class="flex justify-between items-center p-2 rounded bg-emerald-50">
                   <span>续费跟进：苏州范尔科技合同到期提醒</span>
@@ -386,7 +415,7 @@
             <section class="bg-white rounded-xl p-5 border border-slate-200">
               <div class="flex items-center justify-between mb-3">
                 <h2 class="text-base font-semibold text-slate-800">月度业绩排行</h2>
-                <a class="text-xs text-blue-600" href="#">更多</a>
+                <a class="text-xs text-blue-600 hover:underline" href="sales-performance.html">更多</a>
               </div>
               <div class="flex border-b border-slate-200 mb-3" role="tablist">
                 <button type="button" id="ranking-tab-personal" role="tab" aria-selected="true" aria-controls="ranking-panel-personal"
@@ -401,16 +430,16 @@
               <div id="ranking-panel-personal" role="tabpanel" aria-labelledby="ranking-tab-personal">
                 <ul class="space-y-2 text-sm">
                   <li class="flex items-center justify-between">
-                    <span><i class="fa-solid fa-medal text-amber-500 mr-2"></i>吴芳菲</span><span class="font-medium">¥ 292,530</span>
+                    <span><i class="fa-solid fa-medal text-amber-500 mr-2"></i>吴芳</span><span class="font-medium">¥ 292,530</span>
                   </li>
                   <li class="flex items-center justify-between">
-                    <span><i class="fa-solid fa-medal text-slate-400 mr-2"></i>陈海宁</span><span class="font-medium">¥ 264,000</span>
+                    <span><i class="fa-solid fa-medal text-slate-400 mr-2"></i>陈海</span><span class="font-medium">¥ 264,000</span>
                   </li>
                   <li class="flex items-center justify-between">
-                    <span><i class="fa-solid fa-medal text-orange-400 mr-2"></i>杨文博</span><span class="font-medium">¥ 251,900</span>
+                    <span><i class="fa-solid fa-medal text-orange-400 mr-2"></i>杨文</span><span class="font-medium">¥ 251,900</span>
                   </li>
                   <li class="flex items-center justify-between text-slate-500">
-                    <span>4. 李承浩</span><span>¥ 233,100</span>
+                    <span>4. 李承</span><span>¥ 233,100</span>
                   </li>
                   <li class="flex items-center justify-between text-slate-500">
                     <span>5. 赵思源</span><span>¥ 220,700</span>
@@ -420,7 +449,7 @@
               <div id="ranking-panel-team" role="tabpanel" aria-labelledby="ranking-tab-team" class="hidden">
                 <ul class="space-y-2 text-sm">
                   <li class="flex items-center justify-between">
-                    <span><i class="fa-solid fa-medal text-amber-500 mr-2"></i>销售部一组</span><span class="font-medium">¥ 1,256,800</span>
+                    <span><i class="fa-solid fa-medal text-amber-500 mr-2"></i>销售部一</span><span class="font-medium">¥ 1,256,800</span>
                   </li>
                   <li class="flex items-center justify-between">
                     <span><i class="fa-solid fa-medal text-slate-400 mr-2"></i>财税顾问二组</span><span class="font-medium">¥ 1,089,200</span>
@@ -461,7 +490,7 @@
           </div>
         </div>
         <div class="flex items-center gap-4 min-h-11">
-          <label class="w-[100px] shrink-0 text-sm text-slate-600">手机号 <span class="text-red-500">*</span></label>
+          <label class="w-[100px] shrink-0 text-sm text-slate-600">手机<span class="text-red-500">*</span></label>
           <div class="flex-1 relative min-w-0">
             <input id="lead-phone" type="text" maxlength="11" inputmode="numeric" placeholder="请输入内容" class="w-full h-10 pl-3 pr-16 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
             <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 tabular-nums pointer-events-none"><span id="cnt-phone">0</span>/11</span>
@@ -470,9 +499,9 @@
         <div class="flex items-center gap-4 min-h-11">
           <label class="w-[100px] shrink-0 text-sm text-slate-600">所属区域</label>
           <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
-            <option selected>苏州市/工业园区</option>
-            <option>无锡市/新吴区</option>
-            <option>昆山市</option>
+            <option selected>苏州工业园区</option>
+            <option>无锡新吴</option>
+            <option>昆山</option>
           </select>
         </div>
         <div class="flex items-center gap-4 min-h-11">
@@ -481,14 +510,14 @@
             <option selected>医疗器械</option>
             <option>贸易</option>
             <option>科技服务</option>
-            <option>制造</option>
+            <option>制</option>
           </select>
         </div>
         <div class="flex items-center gap-4 min-h-11">
           <label class="w-[100px] shrink-0 text-sm text-slate-600">企业形式</label>
           <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
             <option selected>一般纳税人</option>
-            <option>小规模</option>
+            <option>小规</option>
           </select>
         </div>
         <div class="flex items-center gap-4 min-h-11">
@@ -504,15 +533,15 @@
           <label class="w-[100px] shrink-0 text-sm text-slate-600">来源渠道 <span class="text-red-500">*</span></label>
           <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
             <option selected>抖音</option>
-            <option>小红书</option>
+            <option>小红</option>
             <option>58同城</option>
-            <option>老客户介绍</option>
+            <option>老客户介</option>
           </select>
         </div>
         <div class="flex items-center gap-4 min-h-11">
           <label class="w-[100px] shrink-0 text-sm text-slate-600">流转处理 <span class="text-red-500">*</span></label>
           <select class="flex-1 h-10 px-3 rounded-lg border border-slate-200 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
-            <option selected>销售主管</option>
+            <option selected>销售主</option>
             <option>销售一组</option>
             <option>销售二组</option>
           </select>
@@ -543,13 +572,25 @@
       </div>
       <form id="form-follow-note" class="overflow-y-auto flex-1 px-6 py-5 space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <label class="w-full sm:w-28 shrink-0 text-sm text-slate-600 sm:text-right">线索客户 <span class="text-red-500">*</span></label>
+          <div class="flex-1 min-w-0 relative">
+            <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
+              <option selected>苏苏</option>
+              <option>赵</option>
+              <option>王敏</option>
+              <option>李先</option>
+            </select>
+            <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
           <label class="w-full sm:w-28 shrink-0 text-sm text-slate-600 sm:text-right">跟进进度 <span class="text-red-500">*</span></label>
           <div class="flex-1 min-w-0 relative">
             <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
-              <option value="following" selected>跟进中</option>
+              <option value="following" selected>跟进</option>
               <option value="quote">已发报价</option>
-              <option value="negotiate">磋商中</option>
-              <option value="pending_sign">待签约</option>
+              <option value="negotiate">磋商</option>
+              <option value="pending_sign">待签</option>
             </select>
             <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
           </div>
@@ -625,7 +666,7 @@
         <div class="flex flex-col md:flex-row md:items-start gap-2 md:gap-4">
           <label class="w-24 shrink-0 text-sm text-slate-600 md:text-right pt-2">添加维护内容 <span class="text-red-500">*</span></label>
           <div class="flex-1 min-w-0 relative">
-            <textarea id="maintain-content" maxlength="1000" rows="5" placeholder="请输入" class="w-full px-3 py-2.5 pb-8 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 resize-y min-h-[150px] focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400 bg-slate-50/80">营业执照副本扫描件已更新至客户档案</textarea>
+            <textarea id="maintain-content" maxlength="1000" rows="5" placeholder="请输入" class="w-full px-3 py-2.5 pb-8 rounded-lg border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 resize-y min-h-[150px] focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400 bg-slate-50/80">营业执照副本扫描件已更新至客户档案。</textarea>
             <span class="absolute bottom-2 right-3 text-xs text-slate-400 tabular-nums pointer-events-none"><span id="cnt-maintain">0</span>/1000</span>
           </div>
         </div>
@@ -636,6 +677,8 @@
       </div>
     </div>
   </div>
+
+  <script src="./assets/create-contract-modal.js"></script>
   <script>
     (function () {
       var tabPersonal = document.getElementById('ranking-tab-personal');
@@ -842,7 +885,20 @@
           closeMaintainModal();
         }
       });
+      window.mountCreateContractModal({ openSelectors: ['#btn-open-create-contract'] });
     })();
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
