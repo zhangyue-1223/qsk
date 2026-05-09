@@ -63,7 +63,7 @@
           </summary>
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="government-affairs.html">政务管理</a>
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="#">代账客户</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="accounting-customer-management.html">代账客户</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="address-management.html">地址管理</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="customer-items.html">客户物品</a>
           </div>
@@ -284,7 +284,7 @@
                 <h2 class="text-base font-semibold text-slate-800 flex items-center">
                   <span class="w-1 h-4 rounded bg-blue-500 mr-2"></span>业务速览
                 </h2>
-                <button class="text-xs text-blue-600 hover:text-blue-700">查看全部</button>
+                <a class="text-xs text-blue-600 hover:text-blue-700" href="government-affairs.html">查看全部</a>
               </div>
               <div class="flex gap-4 flex-col lg:flex-row">
                 <div class="w-full lg:w-56 shrink-0 space-y-3">
@@ -365,7 +365,7 @@
             <section class="bg-white rounded-xl p-5 border border-slate-200">
               <div class="flex items-center justify-between mb-3">
                 <h2 class="text-base font-semibold text-slate-800">平台知识库</h2>
-                <a class="text-xs text-blue-600" href="#">去查看</a>
+                <a class="text-xs text-blue-600 hover:text-blue-700" href="knowledge-base.html">去查看</a>
               </div>
               <ul class="space-y-3 text-sm">
                 <li class="flex gap-2">
@@ -596,10 +596,9 @@
           <label class="w-full sm:w-28 shrink-0 text-sm text-slate-600 sm:text-right">跟进进度 <span class="text-red-500">*</span></label>
           <div class="flex-1 min-w-0 relative">
             <select class="w-full h-10 pl-3 pr-9 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400">
-              <option value="following" selected>跟进</option>
-              <option value="quote">已发报价</option>
-              <option value="negotiate">磋商</option>
-              <option value="pending_sign">待签</option>
+              <option value="following" selected>跟进中</option>
+              <option value="won">已成单</option>
+              <option value="abandoned">已放弃</option>
             </select>
             <i class="fa-solid fa-angle-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
           </div>
