@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>员工档案 - 企税康协同工作平台</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="./assets/responsive.css">
+  <style>
+    body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
+    .sec-head { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: #1e293b; margin-bottom: 0.875rem; }
+    .sec-head::before { content: ''; width: 3px; height: 14px; border-radius: 2px; background: #2563eb; flex-shrink: 0; }
+    .kv-label { font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem; }
+    .kv-val { font-size: 0.8125rem; color: #1e293b; }
+    .career-step { position: relative; flex: 1; min-width: 0; text-align: center; }
+    .career-step::before { content: ''; position: absolute; top: 11px; left: 50%; right: -50%; height: 2px; background: #e2e8f0; z-index: 0; }
+    .career-step:last-child::before { display: none; }
+    .career-dot { position: relative; z-index: 1; width: 24px; height: 24px; margin: 0 auto 6px; border-radius: 50%; background: #2563eb; color: #fff; font-size: 10px; display: flex; align-items: center; justify-content: center; }
+    .career-step.done .career-dot { background: #10b981; }
+    .career-step.future .career-dot { background: #fff; border: 2px solid #cbd5e1; color: #94a3b8; }
+    .attach-tile { aspect-ratio: 4/3; border: 1px dashed #cbd5e1; border-radius: 0.5rem; background: #f8fafc; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.35rem; color: #94a3b8; font-size: 0.6875rem; }
+    .attach-tile i { font-size: 1.25rem; }
+    .data-table th { background: #f8fafc; color: #64748b; font-weight: 500; font-size: 0.75rem; padding: 0.5rem 0.75rem; border-bottom: 1px solid #e2e8f0; text-align: left; white-space: nowrap; }
+    .data-table td { font-size: 0.8125rem; color: #334155; padding: 0.625rem 0.75rem; border-bottom: 1px solid #f1f5f9; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-700">
+  <div id="sidebar-backdrop" class="fixed inset-0 z-[150] bg-slate-900/40 hidden lg:hidden"></div>
+  <div class="min-h-screen w-full flex flex-col lg:flex-row relative">
+    <aside id="app-sidebar" class="w-64 max-w-[min(18rem,88vw)] bg-slate-900 text-slate-200 flex flex-col shrink-0 fixed lg:static inset-y-0 left-0 z-[160] h-screen lg:h-auto -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-out overflow-y-auto lg:overflow-visible shadow-xl lg:shadow-none">
+      <div class="h-16 px-3 flex items-center border-b border-slate-800">
+        <div class="w-full rounded-lg bg-white px-2 py-1.5 flex items-center justify-center">
+          <img src="./assets/qishuikang-logo.png" alt="企税康Logo" class="h-8 w-full max-h-8 object-contain object-center mix-blend-multiply">
+        </div>
+      </div>
+      <nav class="flex-1 py-4 text-sm overflow-y-auto">
+        <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="index.html"><i class="fa-solid fa-table-columns w-5 mr-2"></i>工作台</a>
+        <details class="mx-3 mb-1 group" open>
+          <summary class="list-none cursor-pointer h-10 px-4 rounded-lg bg-slate-800/80 flex items-center justify-between text-white [&::-webkit-details-marker]:hidden">
+            <span class="flex items-center"><i class="fa-solid fa-gear w-5 mr-2"></i>系统管理</span>
+            <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
+          </summary>
+          <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="role-permissions.html">角色权限</a>
+            <a class="block py-2 px-3 rounded-lg text-sm bg-blue-600 text-white font-medium" href="department-employees.html">部门员工</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="dictionary-management.html">字典管理</a>
+          </div>
+        </details>
+      </nav>
+    </aside>
+
+    <main class="flex-1 flex flex-col min-w-0 w-full">
+      <header class="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 gap-2 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2 min-w-0 flex-1">
+          <button type="button" id="btn-sidebar-toggle" class="lg:hidden shrink-0 w-10 h-10 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 flex items-center justify-center" aria-label="打开导航"><i class="fa-solid fa-bars text-lg"></i></button>
+          <div class="text-sm text-slate-500 min-w-0 truncate">系统管理 / 部门员工 / <span class="text-slate-700 font-medium">员工档案</span></div>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <button type="button" class="w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200"><i class="fa-regular fa-bell"></i></button>
+          <div class="flex items-center">
+            <img class="w-9 h-9 rounded-full object-cover" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=80&q=80" alt="用户头像">
+            <div class="ml-2 hidden sm:block">
+              <p class="text-sm font-medium text-slate-700">朱总</p>
+              <p class="text-xs text-slate-400">企业端</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="p-4 sm:p-6 flex-1">
+        <div class="text-sm text-slate-500 mb-3">系统管理 / 部门员工 / 员工档案</div>
+
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="px-5 py-3 border-b border-slate-100">
+            <a href="department-employees.html" class="inline-flex items-center text-sm text-slate-500 hover:text-slate-700"><i class="fa-solid fa-angle-left mr-1"></i>员工档案</a>
+          </div>
+
+          <!-- 顶部：员工概要 + 职业时间轴 + 账号信息 -->
+          <div class="p-5 border-b border-slate-100">
+            <div class="flex flex-col lg:flex-row gap-5">
+              <div class="flex gap-4 shrink-0">
+                <img id="emp-avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80" alt="" class="w-16 h-16 rounded-full object-cover ring-2 ring-slate-100">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h1 id="emp-name" class="text-lg font-semibold text-slate-900">许恒星</h1>
+                    <span class="inline-flex rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700 ring-1 ring-blue-100">在职332天</span>
+                  </div>
+                  <p id="emp-meta" class="mt-1 text-sm text-slate-500">女　本科　汉族　18762602255</p>
+                </div>
+              </div>
+
+              <div class="flex-1 min-w-0 px-0 lg:px-4 lg:border-l lg:border-slate-100">
+                <div class="flex justify-between gap-1 overflow-x-auto pb-1">
+                  <div class="career-step done"><div class="career-dot"><i class="fa-solid fa-check text-[9px]"></i></div><p class="text-xs font-medium text-slate-800">入职</p><p class="text-[10px] text-slate-400 mt-0.5">2023-04-03</p></div>
+                  <div class="career-step done"><div class="career-dot"><i class="fa-solid fa-check text-[9px]"></i></div><p class="text-xs font-medium text-slate-800">转正</p><p class="text-[10px] text-slate-400 mt-0.5">2023-07-10</p></div>
+                  <div class="career-step done"><div class="career-dot"><i class="fa-solid fa-check text-[9px]"></i></div><p class="text-xs font-medium text-slate-800">调岗</p><p class="text-[10px] text-slate-400 mt-0.5">2023-10-10</p></div>
+                  <div class="career-step done"><div class="career-dot"><i class="fa-solid fa-check text-[9px]"></i></div><p class="text-xs font-medium text-slate-800">合同续签</p><p class="text-[10px] text-slate-400 mt-0.5">2028-04-10</p></div>
+                  <div class="career-step future"><div class="career-dot">5</div><p class="text-xs font-medium text-slate-500">离职</p><p class="text-[10px] text-slate-400 mt-0.5">2028-05-15</p></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 pt-4 border-t border-slate-100">
+              <div><p class="kv-label">登录账号</p><p class="kv-val" id="emp-account">000001</p></div>
+              <div><p class="kv-label">登录密码</p><p class="kv-val flex items-center gap-2"><span id="pwd-mask">••••••••</span><button type="button" id="btn-toggle-pwd" class="text-slate-400 hover:text-slate-600"><i class="fa-regular fa-eye text-sm"></i></button></p></div>
+              <div><p class="kv-label">所属部门</p><p class="kv-val">政务服务部</p></div>
+              <div><p class="kv-label">所属岗位</p><p class="kv-val">政务员</p></div>
+              <div><p class="kv-label">工作手机号</p><p class="kv-val">18762602255</p></div>
+              <div class="sm:col-span-2 lg:col-span-1"><p class="kv-label">员工备注</p><p class="kv-val text-slate-500">—</p></div>
+            </div>
+          </div>
+
+          <!-- 主体双栏 -->
+          <div class="grid grid-cols-1 xl:grid-cols-2 gap-0">
+            <!-- 左栏 -->
+            <div class="p-5 space-y-6 xl:border-r border-slate-100">
+              <section>
+                <h2 class="sec-head">基本信息</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-3">
+                  <div><p class="kv-label">身份证号</p><p class="kv-val">3205**********1234</p></div>
+                  <div><p class="kv-label">出生日期</p><p class="kv-val">1998-06-15</p></div>
+                  <div><p class="kv-label">政治面貌</p><p class="kv-val">共青团员</p></div>
+                  <div><p class="kv-label">英语水平</p><p class="kv-val">英语四级</p></div>
+                  <div><p class="kv-label">计算机水平</p><p class="kv-val">无</p></div>
+                  <div class="sm:col-span-2"><p class="kv-label">户口所在地</p><p class="kv-val">江苏省苏州市吴中区木渎镇金山路168号</p></div>
+                  <div class="sm:col-span-2"><p class="kv-label">现居住地址</p><p class="kv-val">江苏省苏州市吴中区木渎镇金山路168号</p></div>
+                  <div class="sm:col-span-2"><p class="kv-label">工资卡账号</p><p class="kv-val">6228***********8899</p></div>
+                  <div><p class="kv-label">开户行</p><p class="kv-val">中国农业银行</p></div>
+                  <div><p class="kv-label">开户名</p><p class="kv-val">许恒星</p></div>
+                  <div><p class="kv-label">紧急联系人电话</p><p class="kv-val">138****6688</p></div>
+                  <div><p class="kv-label">与本人关系</p><p class="kv-val">亲属</p></div>
+                  <div><p class="kv-label">婚姻状况</p><p class="kv-val">未婚</p></div>
+                  <div><p class="kv-label">职称</p><p class="kv-val">无</p></div>
+                </div>
+              </section>
+
+              <section>
+                <h2 class="sec-head">教育经历</h2>
+                <div class="overflow-x-auto rounded border border-slate-200">
+                  <table class="data-table w-full min-w-[480px]">
+                    <thead><tr><th>起止时间</th><th>学校名称</th><th>专业</th><th>学历</th></tr></thead>
+                    <tbody>
+                      <tr><td>2016-09 ~ 2020-06</td><td>南京理工大学紫金学院</td><td>计算机科学与技术</td><td>本科</td></tr>
+                      <tr><td>2013-09 ~ 2016-06</td><td>苏州市第一中学</td><td>—</td><td>高中</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              <section>
+                <h2 class="sec-head">家庭成员</h2>
+                <div class="overflow-x-auto rounded border border-slate-200">
+                  <table class="data-table w-full min-w-[520px]">
+                    <thead><tr><th>与本人关系</th><th>姓名</th><th>工作单位</th><th>职务</th><th>联系方式</th></tr></thead>
+                    <tbody>
+                      <tr><td>父亲</td><td>许建国</td><td>苏州某制造企业</td><td>职员</td><td>139****1122</td></tr>
+                      <tr><td>母亲</td><td>李秀英</td><td>—</td><td>—</td><td>137****3344</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+
+            <!-- 右栏 -->
+            <div class="p-5 space-y-6">
+              <section>
+                <h2 class="sec-head">工作经历</h2>
+                <div class="overflow-x-auto rounded border border-slate-200">
+                  <table class="data-table w-full min-w-[560px]">
+                    <thead><tr><th>起止时间</th><th>工作单位</th><th>职务</th><th>证明人</th><th>证明人联系方式</th></tr></thead>
+                    <tbody>
+                      <tr><td>2023-04 ~ 至今</td><td>苏州企税康科技有限公司</td><td>政务员</td><td>孙红</td><td>138****5566</td></tr>
+                      <tr><td>2021-07 ~ 2023-03</td><td>苏州某财税服务公司</td><td>客服专员</td><td>王经理</td><td>136****7788</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              <section>
+                <h2 class="sec-head">附件资料</h2>
+                <div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                  <div class="attach-tile"><i class="fa-regular fa-id-card"></i><span>证件照</span></div>
+                  <div class="attach-tile"><i class="fa-regular fa-address-card"></i><span>身份证正面</span></div>
+                  <div class="attach-tile"><i class="fa-regular fa-address-card"></i><span>身份证反面</span></div>
+                  <div class="attach-tile"><i class="fa-regular fa-file-lines"></i><span>学历证书</span></div>
+                  <div class="attach-tile"><i class="fa-regular fa-file-lines"></i><span>学位证书</span></div>
+                  <div class="attach-tile"><i class="fa-regular fa-file-medical"></i><span>体检报告</span></div>
+                  <div class="attach-tile"><i class="fa-regular fa-certificate"></i><span>资格证书</span></div>
+                  <div class="attach-tile"><i class="fa-regular fa-file"></i><span>离职证明</span></div>
+                </div>
+              </section>
+
+              <section>
+                <h2 class="sec-head">劳动合同</h2>
+                <div class="flex flex-wrap items-center gap-3">
+                  <div class="attach-tile w-28"><i class="fa-regular fa-file-pdf text-blue-500"></i><span class="text-blue-600">劳动合同.pdf</span></div>
+                  <button type="button" class="h-9 px-4 rounded-md bg-blue-600 text-white text-sm hover:bg-blue-700"><i class="fa-solid fa-plus mr-1.5 text-xs"></i>上传合同</button>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var name = params.get('name');
+      if (name) {
+        document.getElementById('emp-name').textContent = decodeURIComponent(name);
+        document.title = name + ' - 员工档案 - 企税康协同工作平台';
+      }
+      var btn = document.getElementById('btn-toggle-pwd');
+      var mask = document.getElementById('pwd-mask');
+      var shown = false;
+      if (btn && mask) {
+        btn.addEventListener('click', function () {
+          shown = !shown;
+          mask.textContent = shown ? 'Abc@12345' : '••••••••';
+          btn.querySelector('i').className = shown ? 'fa-regular fa-eye-slash text-sm' : 'fa-regular fa-eye text-sm';
+        });
+      }
+    })();
+  </script>
+  <script src="./assets/app-shell.js"></script>
+</body>
+</html>

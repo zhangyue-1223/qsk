@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -6,6 +6,8 @@
   <title>客户管理 - 企税康协同工作平台</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="./assets/responsive.css">
   <style>
     body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
     .table-customers { table-layout: fixed; width: 100%; border-collapse: collapse; }
@@ -16,8 +18,9 @@
   </style>
 </head>
 <body class="bg-slate-100 text-slate-700">
-  <div class="min-h-screen w-full flex">
-    <aside class="w-64 bg-slate-900 text-slate-200 flex flex-col shrink-0">
+  <div id="sidebar-backdrop" class="fixed inset-0 z-[150] bg-slate-900/40 hidden lg:hidden"></div>
+  <div class="min-h-screen w-full flex flex-col lg:flex-row relative">
+    <aside id="app-sidebar" class="w-64 max-w-[min(18rem,88vw)] bg-slate-900 text-slate-200 flex flex-col shrink-0 fixed lg:static inset-y-0 left-0 z-[160] h-screen lg:h-auto -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-out overflow-y-auto lg:overflow-visible shadow-xl lg:shadow-none">
       <div class="h-16 px-3 flex items-center border-b border-slate-800">
         <div class="w-full rounded-lg bg-white px-2 py-1.5 flex items-center justify-center">
           <img src="./assets/qishuikang-logo.png" alt="企税康Logo" class="h-8 w-full max-h-8 object-contain object-center mix-blend-multiply">
@@ -31,8 +34,9 @@
             <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
           </summary>
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="lead-management.html">线索管理</a>
             <a class="block py-2 px-3 rounded-lg text-sm bg-blue-600 text-white font-medium" href="customer-management.html">客户管理</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="lead-management.html">线索管理</a>
+            
           </div>
         </details>
         <details class="mx-3 mb-1 group">
@@ -53,7 +57,6 @@
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="contract-management.html">合同管理</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="order-management.html">订单管理</a>
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="invoice-management.html">开票管理</a>
           </div>
         </details>
         <details class="mx-3 mb-1 group">
@@ -62,14 +65,14 @@
             <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
           </summary>
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="government-affairs.html">政务管理</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="government-affairs.html">政务服务</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="accounting-customer-management.html">代账客户</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="address-management.html">地址管理</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="#">客户物品</a>
           </div>
         </details>
         <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="knowledge-base.html"><i class="fa-solid fa-book-open w-5 mr-2"></i>知识库</a>
-        <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="index.html"><i class="fa-solid fa-wallet w-5 mr-2"></i>财务管理</a>
+        <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="index.html"><i class="fa-solid fa-wallet w-5 mr-2"></i>运营管理</a>
         <details class="mx-3 mb-1 group">
           <summary class="list-none cursor-pointer h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center justify-between text-slate-200 [&::-webkit-details-marker]:hidden">
             <span class="flex items-center"><i class="fa-solid fa-gear w-5 mr-2"></i>系统管理</span>
@@ -78,14 +81,13 @@
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="role-permissions.html">角色权限</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="department-employees.html">部门员工</a>
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="approval-center.html">审批中心</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="dictionary-management.html">字典管理</a>
           </div>
         </details>
       </nav>
     </aside>
 
-    <main class="flex-1 flex flex-col min-w-0">
+    <main class="flex-1 flex flex-col min-w-0 w-full">
       <header class="h-14 bg-white border-b border-slate-200 px-5 flex items-center justify-between">
         <div class="text-sm text-slate-500">客户中心 / <span class="text-slate-700 font-medium">客户管理</span></div>
         <div class="flex items-center gap-3">
@@ -101,15 +103,15 @@
         </div>
       </header>
 
-      <section class="p-6">
+      <section class="p-4 sm:p-6">
         <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
           <div class="grid grid-cols-8 gap-3 text-sm">
-            <label class="col-span-1">公司名称<input class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-sm" placeholder="请输入"></label>
+            <label class="col-span-1">企业名称<input class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-sm" placeholder="请输入"></label>
             <label class="col-span-1">联系人/联系方式<input class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-sm" placeholder="请输入"></label>
             <label class="col-span-1">企业类型<button class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-left text-sm text-slate-500">全部</button></label>
-            <label class="col-span-1">合作状态<button class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-left text-sm text-slate-500">全部</button></label>
+            <label class="col-span-1">所属部门<button class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-left text-sm text-slate-500">全部</button></label>
             <label class="col-span-1">销售员<button class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-left text-sm text-slate-500">全部</button></label>
-            <label class="col-span-1">工商服务状态<button class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-left text-sm text-slate-500">全部</button></label>
+            <label class="col-span-1">合作状态<button class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-left text-sm text-slate-500">全部</button></label>
             <label class="col-span-2">创建时间
               <div class="mt-1 flex items-center gap-1">
                 <input class="h-9 w-full rounded border border-slate-200 px-3 text-sm" value="2023-03-21">
@@ -129,31 +131,27 @@
             <table class="table-customers w-full">
               <colgroup>
                 <col style="width:2.5%">
-                <col style="width:15%">
-                <col style="width:5%">
+                <col style="width:16%">
+                <col style="width:6%">
+                <col style="width:9%">
+                <col style="width:8%">
                 <col style="width:8%">
                 <col style="width:7%">
+                <col style="width:8%">
+                <col style="width:11%">
                 <col style="width:7%">
-                <col style="width:6%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:10%">
-                <col style="width:6%">
-                <col style="width:12.5%">
+                <col style="width:17.5%">
               </colgroup>
               <thead class="bg-slate-50">
                 <tr>
                   <th class="col-check px-3 py-3 border-b border-slate-200 text-center"><input type="checkbox" class="h-4 w-4"></th>
-                  <th class="px-3 py-3 border-b border-slate-200 text-left">公司名称</th>
+                  <th class="px-3 py-3 border-b border-slate-200 text-left">企业名称</th>
                   <th class="px-3 py-3 border-b border-slate-200 text-left">联系人</th>
                   <th class="px-3 py-3 border-b border-slate-200 text-left">联系方式</th>
                   <th class="px-3 py-3 border-b border-slate-200 text-left">企业类型</th>
-                  <th class="px-3 py-3 border-b border-slate-200 text-left">合作状态</th>
+                  <th class="px-3 py-3 border-b border-slate-200 text-left">所属部门</th>
                   <th class="px-3 py-3 border-b border-slate-200 text-left">销售员</th>
-                  <th class="px-3 py-3 border-b border-slate-200 text-left">合同类型</th>
-                  <th class="px-3 py-3 border-b border-slate-200 text-left">工商办理状态</th>
-                  <th class="px-3 py-3 border-b border-slate-200 text-left">财务办理状态</th>
+                  <th class="px-3 py-3 border-b border-slate-200 text-left">合作状态</th>
                   <th class="px-3 py-3 border-b border-slate-200 text-left">创建时间</th>
                   <th class="px-3 py-3 border-b border-slate-200 text-left">查看详情</th>
                   <th class="px-3 py-3 border-b border-slate-200 text-left">操作</th>
@@ -163,40 +161,40 @@
                 <tr class="border-b border-slate-100 hover:bg-slate-50">
                   <td class="col-check px-3 py-3 text-center"><input type="checkbox" class="h-4 w-4"></td>
                   <td class="px-3 py-3">苏州怡启尔科技有限公司</td><td class="px-3 py-3">秦总</td><td class="px-3 py-3">13876763515</td>
-                  <td class="px-3 py-3">一般纳税人</td><td class="px-3 py-3">服务中</td><td class="px-3 py-3">陈莉</td><td class="px-3 py-3">代理记账</td>
-                  <td class="px-3 py-3">办理中</td><td class="px-3 py-3">办理中</td><td class="px-3 py-3">2026-03-21 16:03</td>
+                  <td class="px-3 py-3">一般纳税人</td><td class="px-3 py-3">销售一部</td><td class="px-3 py-3">陈莉</td><td class="px-3 py-3">服务中</td>
+                  <td class="px-3 py-3">2026-03-21 16:03</td>
                   <td class="px-3 py-3"><a href="customer-detail.html?id=cust-1" class="text-blue-600 hover:underline">查看详情</a></td>
                   <td class="px-3 py-3"><button type="button" class="js-open-create-contract text-blue-600 hover:underline">新增合同</button><span class="px-1 text-slate-300">|</span><a class="text-blue-600 hover:underline" href="customer-edit.html?id=cust-1">编辑信息</a></td>
                 </tr>
                 <tr class="border-b border-slate-100 hover:bg-slate-50">
                   <td class="col-check px-3 py-3 text-center"><input type="checkbox" class="h-4 w-4"></td>
                   <td class="px-3 py-3">南京实耐时科技有限公司</td><td class="px-3 py-3">王经理</td><td class="px-3 py-3">13876763515</td>
-                  <td class="px-3 py-3">小规模</td><td class="px-3 py-3">服务终止</td><td class="px-3 py-3">周方林</td><td class="px-3 py-3">企业注册</td>
-                  <td class="px-3 py-3">已办结</td><td class="px-3 py-3">已办结</td><td class="px-3 py-3">2026-03-21 16:03</td>
+                  <td class="px-3 py-3">小规模</td><td class="px-3 py-3">销售二部</td><td class="px-3 py-3">周方林</td><td class="px-3 py-3">服务终止</td>
+                  <td class="px-3 py-3">2026-03-21 16:03</td>
                   <td class="px-3 py-3"><a href="customer-detail.html?id=cust-2" class="text-blue-600 hover:underline">查看详情</a></td>
                   <td class="px-3 py-3"><button type="button" class="js-open-create-contract text-blue-600 hover:underline">新增合同</button><span class="px-1 text-slate-300">|</span><a class="text-blue-600 hover:underline" href="customer-edit.html?id=cust-2">编辑信息</a></td>
                 </tr>
                 <tr class="border-b border-slate-100 hover:bg-slate-50">
                   <td class="col-check px-3 py-3 text-center"><input type="checkbox" class="h-4 w-4"></td>
                   <td class="px-3 py-3">苏州怡启尔科技有限公司</td><td class="px-3 py-3">秦总</td><td class="px-3 py-3">13876763515</td>
-                  <td class="px-3 py-3">一般纳税人</td><td class="px-3 py-3">服务中</td><td class="px-3 py-3">陈莉</td><td class="px-3 py-3">代理记账</td>
-                  <td class="px-3 py-3">办理中</td><td class="px-3 py-3">办理中</td><td class="px-3 py-3">2026-03-21 16:03</td>
+                  <td class="px-3 py-3">一般纳税人</td><td class="px-3 py-3">销售一部</td><td class="px-3 py-3">陈莉</td><td class="px-3 py-3">服务中</td>
+                  <td class="px-3 py-3">2026-03-21 16:03</td>
                   <td class="px-3 py-3"><a href="customer-detail.html?id=cust-3" class="text-blue-600 hover:underline">查看详情</a></td>
                   <td class="px-3 py-3"><button type="button" class="js-open-create-contract text-blue-600 hover:underline">新增合同</button><span class="px-1 text-slate-300">|</span><a class="text-blue-600 hover:underline" href="customer-edit.html?id=cust-3">编辑信息</a></td>
                 </tr>
                 <tr class="border-b border-slate-100 hover:bg-slate-50">
                   <td class="col-check px-3 py-3 text-center"><input type="checkbox" class="h-4 w-4"></td>
                   <td class="px-3 py-3">南京莱刻科技有限公司</td><td class="px-3 py-3">王经理</td><td class="px-3 py-3">13876763515</td>
-                  <td class="px-3 py-3">小规模</td><td class="px-3 py-3">服务终止</td><td class="px-3 py-3">周方林</td><td class="px-3 py-3">企业注册</td>
-                  <td class="px-3 py-3">已办结</td><td class="px-3 py-3">已办结</td><td class="px-3 py-3">2026-03-21 16:03</td>
+                  <td class="px-3 py-3">小规模</td><td class="px-3 py-3">销售二部</td><td class="px-3 py-3">周方林</td><td class="px-3 py-3">服务终止</td>
+                  <td class="px-3 py-3">2026-03-21 16:03</td>
                   <td class="px-3 py-3"><a href="customer-detail.html?id=cust-4" class="text-blue-600 hover:underline">查看详情</a></td>
                   <td class="px-3 py-3"><button type="button" class="js-open-create-contract text-blue-600 hover:underline">新增合同</button><span class="px-1 text-slate-300">|</span><a class="text-blue-600 hover:underline" href="customer-edit.html?id=cust-4">编辑信息</a></td>
                 </tr>
                 <tr class="hover:bg-slate-50">
                   <td class="col-check px-3 py-3 text-center"><input type="checkbox" class="h-4 w-4"></td>
                   <td class="px-3 py-3">苏州怡启尔科技有限公司</td><td class="px-3 py-3">秦总</td><td class="px-3 py-3">13876763515</td>
-                  <td class="px-3 py-3">一般纳税人</td><td class="px-3 py-3">服务中</td><td class="px-3 py-3">陈莉</td><td class="px-3 py-3">代理记账</td>
-                  <td class="px-3 py-3">办理中</td><td class="px-3 py-3">办理中</td><td class="px-3 py-3">2026-03-21 16:03</td>
+                  <td class="px-3 py-3">一般纳税人</td><td class="px-3 py-3">销售一部</td><td class="px-3 py-3">陈莉</td><td class="px-3 py-3">服务中</td>
+                  <td class="px-3 py-3">2026-03-21 16:03</td>
                   <td class="px-3 py-3"><a href="customer-detail.html?id=cust-5" class="text-blue-600 hover:underline">查看详情</a></td>
                   <td class="px-3 py-3"><button type="button" class="js-open-create-contract text-blue-600 hover:underline">新增合同</button><span class="px-1 text-slate-300">|</span><a class="text-blue-600 hover:underline" href="customer-edit.html?id=cust-5">编辑信息</a></td>
                 </tr>
@@ -222,6 +220,7 @@
   <script>
     window.mountCreateContractModal({ openSelectors: ['.js-open-create-contract'] });
   </script>
+  <script src="./assets/app-shell.js"></script>
 </body>
 </html>
 

@@ -6,6 +6,8 @@
   <title>部门员工 - 企税康协同工作平台</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="./assets/responsive.css">
   <style>
     body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
     .emp-tab { border-bottom: 2px solid transparent; color: #64748b; padding-bottom: 0.5rem; margin-bottom: -1px; }
@@ -18,8 +20,9 @@
   </style>
 </head>
 <body class="bg-slate-100 text-slate-700">
-  <div class="min-h-screen w-full flex">
-    <aside class="w-64 bg-slate-900 text-slate-200 flex flex-col shrink-0">
+  <div id="sidebar-backdrop" class="fixed inset-0 z-[150] bg-slate-900/40 hidden lg:hidden"></div>
+  <div class="min-h-screen w-full flex flex-col lg:flex-row relative">
+    <aside id="app-sidebar" class="w-64 max-w-[min(18rem,88vw)] bg-slate-900 text-slate-200 flex flex-col shrink-0 fixed lg:static inset-y-0 left-0 z-[160] h-screen lg:h-auto -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-out overflow-y-auto lg:overflow-visible shadow-xl lg:shadow-none">
       <div class="h-16 px-3 flex items-center border-b border-slate-800">
         <div class="w-full rounded-lg bg-white px-2 py-1.5 flex items-center justify-center">
           <img src="./assets/qishuikang-logo.png" alt="企税康Logo" class="h-8 w-full max-h-8 object-contain object-center mix-blend-multiply">
@@ -33,8 +36,8 @@
             <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
           </summary>
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="lead-management.html">线索管理</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="customer-management.html">客户管理</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="lead-management.html">线索管理</a>
           </div>
         </details>
         <details class="mx-3 mb-1 group">
@@ -55,7 +58,6 @@
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="contract-management.html">合同管理</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="order-management.html">订单管理</a>
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="invoice-management.html">开票管理</a>
           </div>
         </details>
         <details class="mx-3 mb-1 group">
@@ -64,7 +66,7 @@
             <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
           </summary>
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="government-affairs.html">政务管理</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="government-affairs.html">政务服务</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="accounting-customer-management.html">代账客户</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="address-management.html">地址管理</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="#">客户物品</a>
@@ -73,13 +75,14 @@
         <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="knowledge-base.html"><i class="fa-solid fa-book-open w-5 mr-2"></i>知识库</a>
         <details class="mx-3 mb-1 group">
           <summary class="list-none cursor-pointer h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center justify-between text-slate-200 [&::-webkit-details-marker]:hidden">
-            <span class="flex items-center"><i class="fa-solid fa-wallet w-5 mr-2"></i>财务管理</span>
+            <span class="flex items-center"><i class="fa-solid fa-wallet w-5 mr-2"></i>运营管理</span>
             <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
           </summary>
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="payment-request.html">用款申请</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="payment-request.html">财务申请</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="#">人事申请</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="financial-reports.html">财务报表</a>
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="salary-management.html">薪酬管理</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="salary-management.html">薪资管理</a>
           </div>
         </details>
         <details class="mx-3 mb-1 group" open>
@@ -90,17 +93,19 @@
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="role-permissions.html">角色权限</a>
             <a class="block py-2 px-3 rounded-lg text-sm bg-blue-600 text-white font-medium" href="department-employees.html">部门员工</a>
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="approval-center.html">审批中心</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="dictionary-management.html">字典管理</a>
           </div>
         </details>
       </nav>
     </aside>
 
-    <main class="flex-1 flex flex-col min-w-0">
-      <header class="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between shrink-0">
-        <div class="text-sm text-slate-500">系统管理 / <span class="text-slate-700 font-medium">部门员工</span></div>
-        <div class="flex items-center gap-3">
+    <main class="flex-1 flex flex-col min-w-0 w-full">
+      <header class="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 gap-2 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2 min-w-0 flex-1">
+        <button type="button" id="btn-sidebar-toggle" class="lg:hidden shrink-0 w-10 h-10 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 flex items-center justify-center" aria-expanded="false" aria-controls="app-sidebar" aria-label="打开导航菜单"><i class="fa-solid fa-bars text-lg"></i></button>
+        <div class="text-sm text-slate-500 min-w-0 truncate">系统管理 / <span class="text-slate-700 font-medium">部门员工</span></div>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
           <button type="button" class="w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200"><i class="fa-regular fa-bell"></i></button>
           <div class="flex items-center">
             <img class="w-9 h-9 rounded-full object-cover" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=80&q=80" alt="用户头像">
@@ -112,7 +117,7 @@
         </div>
       </header>
 
-      <section class="p-6 flex-1 min-h-0">
+      <section class="p-4 sm:p-6 flex-1 min-h-0">
         <div class="text-sm text-slate-500 mb-3">系统管理 / 部门员工</div>
         <div class="flex gap-4 min-h-[calc(100vh-8.5rem)]">
           <div class="w-72 shrink-0 flex flex-col rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
@@ -243,7 +248,7 @@
                   <button type="button" class="h-9 w-full rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-600 flex items-center justify-between">全部<i class="fa-solid fa-angle-down text-xs text-slate-400"></i></button>
                 </div>
                 <div class="w-40">
-                  <label class="block text-xs text-slate-500 mb-1">绑定角色</label>
+                  <label class="block text-xs text-slate-500 mb-1">所属岗位</label>
                   <button type="button" class="h-9 w-full rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-600 flex items-center justify-between">全部<i class="fa-solid fa-angle-down text-xs text-slate-400"></i></button>
                 </div>
                 <div>
@@ -273,16 +278,32 @@
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">登录账号</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">员工姓名</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">所属部门</th>
-                    <th class="text-left px-3 py-3 font-medium border-b border-slate-200">绑定角色</th>
+                    <th class="text-left px-3 py-3 font-medium border-b border-slate-200">所属岗位</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">入职时长</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">合同到期</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">工作手机号</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">是否转正</th>
-                    <th class="text-left px-3 py-3 font-medium border-b border-slate-200">角色权限</th>
+                    <th class="text-left px-3 py-3 font-medium border-b border-slate-200">员工档案</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200 whitespace-nowrap">操作</th>
                   </tr>
                 </thead>
                 <tbody class="text-slate-700">
+                  <tr class="hover:bg-slate-50">
+                    <td class="px-3 py-3 border-b border-slate-100">000001</td>
+                    <td class="px-3 py-3 border-b border-slate-100">许恒星</td>
+                    <td class="px-3 py-3 border-b border-slate-100">政务服务部</td>
+                    <td class="px-3 py-3 border-b border-slate-100">政务员</td>
+                    <td class="px-3 py-3 border-b border-slate-100">在职 332 天</td>
+                    <td class="px-3 py-3 border-b border-slate-100"><span class="inline-flex rounded-full bg-emerald-50 px-2 py-0.5 text-xs text-emerald-700">余 332 天</span></td>
+                    <td class="px-3 py-3 border-b border-slate-100">18762602255</td>
+                    <td class="px-3 py-3 border-b border-slate-100">是</td>
+                    <td class="px-3 py-3 border-b border-slate-100"><a href="employee-profile.html?name=%E8%AE%B8%E6%81%92%E6%98%9F" class="text-blue-600 hover:underline js-profile-link">查看详情</a></td>
+                    <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap">
+                      <button type="button" class="text-blue-600 hover:underline js-copy-link">补充信息</button>
+                      <span class="text-slate-300 mx-1">|</span>
+                      <button type="button" class="text-blue-600 hover:underline js-open-ban" data-name="许恒星">封禁</button>
+                    </td>
+                  </tr>
                   <tr class="hover:bg-slate-50">
                     <td class="px-3 py-3 border-b border-slate-100">000020</td>
                     <td class="px-3 py-3 border-b border-slate-100">郑亮</td>
@@ -292,10 +313,8 @@
                     <td class="px-3 py-3 border-b border-slate-100"><span class="inline-flex rounded-full bg-rose-50 px-2 py-0.5 text-xs text-rose-700">逾期 332 天</span></td>
                     <td class="px-3 py-3 border-b border-slate-100">138****1234</td>
                     <td class="px-3 py-3 border-b border-slate-100">是</td>
-                    <td class="px-3 py-3 border-b border-slate-100"><a href="role-permissions.html" class="text-blue-600 hover:underline">查看详情</a></td>
+                    <td class="px-3 py-3 border-b border-slate-100"><a href="employee-profile.html" class="text-blue-600 hover:underline">查看详情</a></td>
                     <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap">
-                      <a href="employee-edit.html" class="text-blue-600 hover:underline">编辑</a>
-                      <span class="text-slate-300 mx-1">|</span>
                       <button type="button" class="text-blue-600 hover:underline js-copy-link">补充信息</button>
                       <span class="text-slate-300 mx-1">|</span>
                       <button type="button" class="text-blue-600 hover:underline js-open-ban" data-name="郑亮">封禁</button>
@@ -310,10 +329,8 @@
                     <td class="px-3 py-3 border-b border-slate-100"><span class="inline-flex rounded-full bg-emerald-50 px-2 py-0.5 text-xs text-emerald-700">余 332 天</span></td>
                     <td class="px-3 py-3 border-b border-slate-100">139****5678</td>
                     <td class="px-3 py-3 border-b border-slate-100">是</td>
-                    <td class="px-3 py-3 border-b border-slate-100"><a href="role-permissions.html" class="text-blue-600 hover:underline">查看详情</a></td>
+                    <td class="px-3 py-3 border-b border-slate-100"><a href="employee-profile.html" class="text-blue-600 hover:underline">查看详情</a></td>
                     <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap">
-                      <a href="employee-edit.html" class="text-blue-600 hover:underline">编辑</a>
-                      <span class="text-slate-300 mx-1">|</span>
                       <button type="button" class="text-blue-600 hover:underline js-copy-link">补充信息</button>
                       <span class="text-slate-300 mx-1">|</span>
                       <button type="button" class="text-blue-600 hover:underline js-open-ban" data-name="曹媛">封禁</button>
@@ -330,12 +347,12 @@
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">登录账号</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">员工姓名</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">所属部门</th>
-                    <th class="text-left px-3 py-3 font-medium border-b border-slate-200">绑定角色</th>
+                    <th class="text-left px-3 py-3 font-medium border-b border-slate-200">所属岗位</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">入职时长</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">合同到期</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">工作手机号</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">是否转正</th>
-                    <th class="text-left px-3 py-3 font-medium border-b border-slate-200">角色权限</th>
+                    <th class="text-left px-3 py-3 font-medium border-b border-slate-200">员工档案</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200 whitespace-nowrap">操作</th>
                   </tr>
                 </thead>
@@ -349,10 +366,8 @@
                     <td class="px-3 py-3 border-b border-slate-100"><span class="inline-flex rounded-full bg-emerald-50 px-2 py-0.5 text-xs text-emerald-700">余 332 天</span></td>
                     <td class="px-3 py-3 border-b border-slate-100">136****9012</td>
                     <td class="px-3 py-3 border-b border-slate-100">否</td>
-                    <td class="px-3 py-3 border-b border-slate-100"><a href="role-permissions.html" class="text-blue-600 hover:underline">查看详情</a></td>
+                    <td class="px-3 py-3 border-b border-slate-100"><a href="employee-profile.html" class="text-blue-600 hover:underline">查看详情</a></td>
                     <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap">
-                      <a href="employee-edit.html" class="text-blue-600 hover:underline">编辑</a>
-                      <span class="text-slate-300 mx-1">|</span>
                       <button type="button" class="text-blue-600 hover:underline js-copy-link">补充信息</button>
                       <span class="text-slate-300 mx-1">|</span>
                       <button type="button" class="text-blue-600 hover:underline js-open-ban" data-name="王浩">封禁</button>
@@ -369,7 +384,7 @@
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">登录账号</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">员工姓名</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">所属部门</th>
-                    <th class="text-left px-3 py-3 font-medium border-b border-slate-200">绑定角色</th>
+                    <th class="text-left px-3 py-3 font-medium border-b border-slate-200">所属岗位</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">入职时长</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">工作手机号</th>
                     <th class="text-left px-3 py-3 font-medium border-b border-slate-200">是否转正</th>
@@ -515,7 +530,17 @@
           if (!banModal.classList.contains('hidden')) closeBan();
         }
       });
+
+      document.querySelectorAll('#panel-table-active tbody tr, #panel-table-probation tbody tr').forEach(function (row) {
+        var nameCell = row.cells[1];
+        var link = row.querySelector('a.js-profile-link, a[href="employee-profile.html"]');
+        if (nameCell && link) {
+          var name = nameCell.textContent.trim();
+          if (name) link.href = 'employee-profile.html?name=' + encodeURIComponent(name);
+        }
+      });
     })();
   </script>
+  <script src="./assets/app-shell.js"></script>
 </body>
 </html>

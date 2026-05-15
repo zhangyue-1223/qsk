@@ -6,6 +6,8 @@
   <title>薪酬管理 - 企税康协同工作平台</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="./assets/responsive.css">
   <style>
     body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
     .salary-table { min-width: 2200px; }
@@ -14,8 +16,9 @@
   </style>
 </head>
 <body class="bg-slate-100 text-slate-700">
-  <div class="min-h-screen w-full flex">
-    <aside class="w-64 bg-slate-900 text-slate-200 flex flex-col shrink-0">
+  <div id="sidebar-backdrop" class="fixed inset-0 z-[150] bg-slate-900/40 hidden lg:hidden"></div>
+  <div class="min-h-screen w-full flex flex-col lg:flex-row relative">
+    <aside id="app-sidebar" class="w-64 max-w-[min(18rem,88vw)] bg-slate-900 text-slate-200 flex flex-col shrink-0 fixed lg:static inset-y-0 left-0 z-[160] h-screen lg:h-auto -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-out overflow-y-auto lg:overflow-visible shadow-xl lg:shadow-none">
       <div class="h-16 px-3 flex items-center border-b border-slate-800">
         <div class="w-full rounded-lg bg-white px-2 py-1.5 flex items-center justify-center">
           <img src="./assets/qishuikang-logo.png" alt="企税康Logo" class="h-8 w-full max-h-8 object-contain object-center mix-blend-multiply">
@@ -29,8 +32,8 @@
             <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
           </summary>
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="lead-management.html">线索管理</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="customer-management.html">客户管理</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="lead-management.html">线索管理</a>
           </div>
         </details>
         <details class="mx-3 mb-1 group">
@@ -51,7 +54,6 @@
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="contract-management.html">合同管理</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="order-management.html">订单管理</a>
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="invoice-management.html">开票管理</a>
           </div>
         </details>
         <details class="mx-3 mb-1 group">
@@ -60,7 +62,7 @@
             <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
           </summary>
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="government-affairs.html">政务管理</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="government-affairs.html">政务服务</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="accounting-customer-management.html">代账客户</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="address-management.html">地址管理</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="#">客户物品</a>
@@ -69,13 +71,14 @@
         <a class="mx-3 mb-1 h-10 px-4 rounded-lg hover:bg-slate-800 flex items-center" href="knowledge-base.html"><i class="fa-solid fa-book-open w-5 mr-2"></i>知识库</a>
         <details class="mx-3 mb-1 group" open>
           <summary class="list-none cursor-pointer h-10 px-4 rounded-lg bg-slate-800/80 flex items-center justify-between text-white [&::-webkit-details-marker]:hidden">
-            <span class="flex items-center"><i class="fa-solid fa-wallet w-5 mr-2"></i>财务管理</span>
+            <span class="flex items-center"><i class="fa-solid fa-wallet w-5 mr-2"></i>运营管理</span>
             <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i>
           </summary>
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="payment-request.html">用款申请</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="payment-request.html">财务申请</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="#">人事申请</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="financial-reports.html">财务报表</a>
-            <a class="block py-2 px-3 rounded-lg text-sm bg-blue-600 text-white font-medium" href="salary-management.html">薪酬管理</a>
+            <a class="block py-2 px-3 rounded-lg text-sm bg-blue-600 text-white font-medium" href="salary-management.html">薪资管理</a>
           </div>
         </details>
         <details class="mx-3 mb-1 group">
@@ -86,17 +89,19 @@
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="role-permissions.html">角色权限</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="department-employees.html">部门员工</a>
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="approval-center.html">审批中心</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="dictionary-management.html">字典管理</a>
           </div>
         </details>
       </nav>
     </aside>
 
-    <main class="flex-1 flex flex-col min-w-0">
-      <header class="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between shrink-0">
-        <div class="text-sm text-slate-500">财务管理 / <span class="text-slate-700 font-medium">薪酬管理</span></div>
-        <div class="flex items-center gap-3">
+    <main class="flex-1 flex flex-col min-w-0 w-full">
+      <header class="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 gap-2 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2 min-w-0 flex-1">
+        <button type="button" id="btn-sidebar-toggle" class="lg:hidden shrink-0 w-10 h-10 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 flex items-center justify-center" aria-expanded="false" aria-controls="app-sidebar" aria-label="打开导航菜单"><i class="fa-solid fa-bars text-lg"></i></button>
+        <div class="text-sm text-slate-500 min-w-0 truncate">财务管理 / <span class="text-slate-700 font-medium">薪酬管理</span></div>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
           <button type="button" class="w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200"><i class="fa-regular fa-bell"></i></button>
           <div class="flex items-center">
             <img class="w-9 h-9 rounded-full object-cover" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=80&q=80" alt="用户头像">
@@ -108,7 +113,7 @@
         </div>
       </header>
 
-      <section class="p-6">
+      <section class="p-4 sm:p-6">
         <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
           <div class="text-sm text-slate-500 mb-4">财务管理 / 薪酬管理</div>
 
@@ -203,14 +208,15 @@
                   <td class="px-3 py-3 border-b border-slate-100 text-right">517.30</td>
                   <td class="px-3 py-3 border-b border-slate-100 text-right font-medium text-slate-900">7,994.30</td>
                   <td class="px-3 py-3 border-b border-slate-100 text-center">4月</td>
-                  <td class="px-3 py-3 border-b border-slate-100 text-center">有反馈</td>
+                  <td class="px-3 py-3 border-b border-slate-100 text-center">未确认</td>
                   <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap">
-                    <button type="button" class="text-blue-600 hover:underline js-salary-detail" data-state="feedback"
+                    <button type="button" class="text-blue-600 hover:underline js-salary-detail" data-state="unconfirmed"
                       data-name="张思佳" data-dept="销售一组" data-role="销售员" data-month="2026-04" data-actual="7994.3" data-entry="2025-11-08"
-                      data-feedback="提成计算错误！"
                       data-avatar="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=96&q=80">查看</button>
                     <span class="text-slate-300 mx-1">|</span>
                     <button type="button" class="text-blue-600 hover:underline">修改</button>
+                    <span class="text-slate-300 mx-1">|</span>
+                    <button type="button" class="text-blue-600 hover:underline">发送</button>
                   </td>
                 </tr>
                 <tr class="hover:bg-slate-50">
@@ -260,7 +266,7 @@
                   <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap">
                     <span class="text-blue-600 hover:underline cursor-pointer">查看</span>
                     <span class="text-slate-300 mx-1">|</span>
-                    <span class="text-blue-600 hover:underline cursor-pointer">发布</span>
+                    <span class="text-blue-600 hover:underline cursor-pointer">发送</span>
                   </td>
                 </tr>
                 <tr class="hover:bg-slate-50">
@@ -285,7 +291,7 @@
                   <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap">
                     <span class="text-blue-600 hover:underline cursor-pointer">修改</span>
                     <span class="text-slate-300 mx-1">|</span>
-                    <span class="text-blue-600 hover:underline cursor-pointer">发布</span>
+                    <span class="text-blue-600 hover:underline cursor-pointer">发送</span>
                   </td>
                 </tr>
               </tbody>
@@ -402,14 +408,13 @@
           footer.innerHTML =
             '<button type="button" class="h-9 min-w-[100px] rounded-md bg-blue-600 px-4 text-sm font-medium text-white hover:bg-blue-700 js-salary-action">撤回</button>' +
             '<button type="button" class="h-9 min-w-[100px] rounded-md border border-slate-300 bg-white px-4 text-sm text-slate-600 hover:bg-slate-50" data-salary-close>取消</button>';
-        } else if (state === 'feedback') {
-          banner.classList.add('border-rose-200', 'bg-rose-50');
-          bannerStatus.className = 'shrink-0 max-w-[55%] text-right text-sm font-medium text-rose-900 leading-snug';
-          var fb = btn.getAttribute('data-feedback') || '';
-          bannerStatus.textContent = '反馈问题：' + fb;
+        } else if (state === 'unconfirmed') {
+          banner.classList.add('border-amber-200', 'bg-amber-50');
+          bannerStatus.className = 'shrink-0 text-sm font-medium text-amber-800';
+          bannerStatus.textContent = '未确认';
           footer.innerHTML =
             '<button type="button" class="h-9 min-w-[100px] rounded-md bg-blue-600 px-4 text-sm font-medium text-white hover:bg-blue-700 js-salary-action">修改</button>' +
-            '<button type="button" class="h-9 min-w-[100px] rounded-md border border-slate-300 bg-white px-4 text-sm text-slate-600 hover:bg-slate-50 js-salary-action">发布</button>';
+            '<button type="button" class="h-9 min-w-[100px] rounded-md border border-slate-300 bg-white px-4 text-sm text-slate-600 hover:bg-slate-50 js-salary-action">发送</button>';
         } else if (state === 'confirmed') {
           banner.classList.add('border-sky-200', 'bg-sky-50');
           bannerStatus.className = 'shrink-0 text-sm font-medium text-sky-800';
@@ -449,5 +454,6 @@
       });
     })();
   </script>
+  <script src="./assets/app-shell.js"></script>
 </body>
 </html>
