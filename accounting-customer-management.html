@@ -17,6 +17,10 @@
     #modal-dispatch-accounting:not(.hidden),
     #modal-progress-accounting:not(.hidden),
     #modal-transfer-accounting:not(.hidden) { display: flex; }
+    .deadline-badge { display: inline-block; padding: 0.125rem 0.5rem; font-size: 0.8125rem; line-height: 1.25rem; border-radius: 0.25rem; white-space: nowrap; }
+    .deadline-normal { background: #dcfce7; color: #166534; }
+    .deadline-warning { background: #ffedd5; color: #c2410c; }
+    .deadline-overdue { background: #fee2e2; color: #dc2626; }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-700">
@@ -101,39 +105,66 @@
         <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
           <div class="mb-4 text-sm text-slate-500">交付中心 / 代账客户</div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 gap-y-4 items-end mb-4">
-            <label class="lg:col-span-2 text-xs text-slate-500">企业编号
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-3 gap-y-4 items-end mb-4">
+            <label class="text-xs text-slate-500">企业名称
               <input type="text" class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-sm" placeholder="请输入">
             </label>
-            <label class="lg:col-span-2 text-xs text-slate-500">公司名称
-              <input type="text" class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-sm" placeholder="请输入">
+            <label class="text-xs text-slate-500">销售员
+              <select class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-sm bg-white text-slate-600">
+                <option value="">请选择</option>
+                <option>周芳林</option>
+                <option>周方林</option>
+              </select>
             </label>
-            <div class="lg:col-span-2 text-xs text-slate-500">业务员
-              <button type="button" class="mt-1 h-9 w-full rounded border border-slate-200 bg-white px-3 text-left text-sm text-slate-600 flex items-center justify-between">请选择<i class="fa-solid fa-angle-down text-xs text-slate-400"></i></button>
-            </div>
-            <div class="lg:col-span-2 text-xs text-slate-500">所属部门
-              <button type="button" class="mt-1 h-9 w-full rounded border border-slate-200 bg-white px-3 text-left text-sm text-slate-600 flex items-center justify-between">请选择<i class="fa-solid fa-angle-down text-xs text-slate-400"></i></button>
-            </div>
-            <div class="lg:col-span-2 text-xs text-slate-500">主办会计
-              <button type="button" class="mt-1 h-9 w-full rounded border border-slate-200 bg-white px-3 text-left text-sm text-slate-600 flex items-center justify-between">请选择<i class="fa-solid fa-angle-down text-xs text-slate-400"></i></button>
-            </div>
-            <div class="lg:col-span-2 text-xs text-slate-500">开票员
-              <button type="button" class="mt-1 h-9 w-full rounded border border-slate-200 bg-white px-3 text-left text-sm text-slate-600 flex items-center justify-between">请选择<i class="fa-solid fa-angle-down text-xs text-slate-400"></i></button>
-            </div>
-            <div class="lg:col-span-2 text-xs text-slate-500">财税顾问
-              <button type="button" class="mt-1 h-9 w-full rounded border border-slate-200 bg-white px-3 text-left text-sm text-slate-600 flex items-center justify-between">请选择<i class="fa-solid fa-angle-down text-xs text-slate-400"></i></button>
-            </div>
-            <div class="lg:col-span-4 text-xs text-slate-500">服务起止时间
-              <div class="mt-1 flex items-center gap-1.5">
-                <input type="text" value="2023-03-21" class="h-9 flex-1 min-w-0 px-2 rounded border border-slate-200 text-sm">
-                <span class="text-slate-400 shrink-0">-</span>
-                <input type="text" value="2024-03-21" class="h-9 flex-1 min-w-0 px-2 rounded border border-slate-200 text-sm">
+            <label class="text-xs text-slate-500">业务部门
+              <select class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-sm bg-white text-slate-600">
+                <option value="">请选择</option>
+                <option>网销一组</option>
+                <option>常熟组</option>
+              </select>
+            </label>
+            <label class="text-xs text-slate-500">服务部门
+              <select class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-sm bg-white text-slate-600">
+                <option value="">请选择</option>
+                <option>顾问二组</option>
+                <option>顾问一组</option>
+              </select>
+            </label>
+            <label class="text-xs text-slate-500">主办会计
+              <select class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-sm bg-white text-slate-600">
+                <option value="">请选择</option>
+                <option>马时笑</option>
+                <option>许悦</option>
+              </select>
+            </label>
+            <label class="text-xs text-slate-500">开票员
+              <select class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-sm bg-white text-slate-600">
+                <option value="">请选择</option>
+                <option>马时笑</option>
+                <option>许悦</option>
+              </select>
+            </label>
+            <label class="text-xs text-slate-500">财税顾问
+              <select class="mt-1 h-9 w-full rounded border border-slate-200 px-3 text-sm bg-white text-slate-600">
+                <option value="">请选择</option>
+                <option>马时笑</option>
+                <option>许悦</option>
+              </select>
+            </label>
+            <div class="sm:col-span-2 lg:col-span-3 xl:col-span-5 flex flex-wrap items-end gap-3">
+              <div class="text-xs text-slate-500 shrink-0">
+                服务起止时间
+                <div class="mt-1 flex items-center gap-1.5">
+                  <input type="text" value="2023-03-21" class="h-9 w-32 px-3 rounded border border-slate-200 text-sm">
+                  <span class="text-slate-400 shrink-0">-</span>
+                  <input type="text" value="2024-03-21" class="h-9 w-32 px-3 rounded border border-slate-200 text-sm">
+                </div>
               </div>
-            </div>
-            <div class="lg:col-span-6 flex flex-wrap justify-end gap-2">
-              <button type="button" class="h-9 px-5 rounded bg-blue-600 text-white text-sm hover:bg-blue-700">查询</button>
-              <button type="button" class="h-9 px-5 rounded border border-slate-200 bg-white text-sm text-slate-600 hover:bg-slate-50">重置</button>
-              <button type="button" id="btn-open-add-accounting" class="h-9 px-4 rounded bg-blue-600 text-white text-sm hover:bg-blue-700">新增代账客户</button>
+              <div class="flex flex-wrap items-center gap-2 shrink-0">
+                <button type="button" class="h-9 px-5 rounded bg-blue-600 text-white text-sm hover:bg-blue-700">查询</button>
+                <button type="button" class="h-9 px-5 rounded border border-slate-200 bg-white text-sm text-slate-600 hover:bg-slate-50">重置</button>
+                <button type="button" id="btn-open-add-accounting" class="h-9 px-4 rounded bg-blue-600 text-white text-sm hover:bg-blue-700">新增代账客户</button>
+              </div>
             </div>
           </div>
 
@@ -144,139 +175,125 @@
           </div>
 
           <div class="overflow-x-auto rounded border border-slate-200">
-            <table class="w-full min-w-[1800px] text-sm">
+            <table class="w-full min-w-[1600px] text-sm">
               <thead class="bg-slate-50 text-slate-600">
                 <tr>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">企业编号</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">公司名称</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">所属部门</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">业务员</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">代账价格</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">收费单位</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">代账费/月</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">记账月份</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">中止月份</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">合同结束日期</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">合同截止提醒</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">主办会计</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">财税顾问</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">开票员</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">查看详情</th>
-                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium">操作</th>
+                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">企业名称</th>
+                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">业务部门</th>
+                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">销售员</th>
+                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">财税顾问</th>
+                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">主办会计</th>
+                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">开票员</th>
+                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">代账价格</th>
+                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">收费单位</th>
+                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">代账费/月</th>
+                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">记账开始月份</th>
+                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">收费截止月份</th>
+                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">合同结束日期</th>
+                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">查看详情</th>
+                  <th class="text-left px-3 py-3 border-b border-slate-200 font-medium whitespace-nowrap">操作</th>
                 </tr>
               </thead>
               <tbody class="text-slate-700">
-                <tr class="hover:bg-slate-50 acc-row" data-tax="general" data-id="acc-1" data-company="苏州美的信息科技有限公司" data-no="20260415001" data-contract="20260415002" data-dept="网销一组" data-sales="马石油" data-fee="333/月" data-chief="马时笑" data-adviser="马时笑" data-invoice="马时笑">
-                  <td class="px-3 py-3 border-b border-slate-100">20260404002</td>
+                <tr class="hover:bg-slate-50 acc-row" data-tax="general" data-id="acc-1" data-company="苏州美的信息科技有限公司" data-contract="20260415002" data-dept="网销一组" data-sales="周方林" data-fee="333/月" data-chief="马时笑" data-adviser="马时笑" data-invoice="马时笑">
                   <td class="px-3 py-3 border-b border-slate-100">苏州美的信息科技有限公司</td>
-                  <td class="px-3 py-3 border-b border-slate-100">网销</td>
+                  <td class="px-3 py-3 border-b border-slate-100">网销一组</td>
                   <td class="px-3 py-3 border-b border-slate-100">周方林</td>
+                  <td class="px-3 py-3 border-b border-slate-100 text-slate-400">—</td>
+                  <td class="px-3 py-3 border-b border-slate-100 text-slate-400">—</td>
+                  <td class="px-3 py-3 border-b border-slate-100 text-slate-400">—</td>
                   <td class="px-3 py-3 border-b border-slate-100">4000</td>
                   <td class="px-3 py-3 border-b border-slate-100">年付</td>
                   <td class="px-3 py-3 border-b border-slate-100">333</td>
                   <td class="px-3 py-3 border-b border-slate-100">2026-06</td>
-                  <td class="px-3 py-3 border-b border-slate-100">2027-06</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><span class="deadline-badge deadline-normal">2027年6月</span></td>
                   <td class="px-3 py-3 border-b border-slate-100">2028-03-21</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
                   <td class="px-3 py-3 border-b border-slate-100"><a class="text-blue-600 hover:underline" href="accounting-customer-detail.html?id=acc-1">查看详情</a></td>
-                  <td class="px-3 py-3 border-b border-slate-100"><button type="button" class="text-blue-600 hover:underline js-dispatch mr-3">派单</button></td>
+                  <td class="px-3 py-3 border-b border-slate-100"><button type="button" class="text-blue-600 hover:underline js-dispatch">派单</button></td>
                 </tr>
-                <tr class="hover:bg-slate-50 acc-row" data-tax="general" data-id="acc-2" data-company="苏州维的科技有限公司" data-no="20260415002" data-contract="20260415002" data-dept="网销一组" data-sales="马石油" data-fee="292/月" data-chief="马时笑" data-adviser="马时笑" data-invoice="马时笑">
-                  <td class="px-3 py-3 border-b border-slate-100">20260404003</td>
+                <tr class="hover:bg-slate-50 acc-row" data-tax="general" data-id="acc-2" data-company="苏州维的科技有限公司" data-contract="20260415002" data-dept="网销一组" data-sales="周方林" data-fee="292/月" data-chief="马时笑" data-adviser="马时笑" data-invoice="马时笑">
                   <td class="px-3 py-3 border-b border-slate-100">苏州维的科技有限公司</td>
-                  <td class="px-3 py-3 border-b border-slate-100">吴江</td>
+                  <td class="px-3 py-3 border-b border-slate-100">网销一组</td>
                   <td class="px-3 py-3 border-b border-slate-100">周方林</td>
+                  <td class="px-3 py-3 border-b border-slate-100 text-slate-400">—</td>
+                  <td class="px-3 py-3 border-b border-slate-100 text-slate-400">—</td>
+                  <td class="px-3 py-3 border-b border-slate-100 text-slate-400">—</td>
                   <td class="px-3 py-3 border-b border-slate-100">3500</td>
                   <td class="px-3 py-3 border-b border-slate-100">年付</td>
                   <td class="px-3 py-3 border-b border-slate-100">292</td>
                   <td class="px-3 py-3 border-b border-slate-100">2026-06</td>
-                  <td class="px-3 py-3 border-b border-slate-100">2027-06</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><span class="deadline-badge deadline-normal">2027年6月</span></td>
                   <td class="px-3 py-3 border-b border-slate-100">2028-03-21</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
                   <td class="px-3 py-3 border-b border-slate-100"><a class="text-blue-600 hover:underline" href="accounting-customer-detail.html?id=acc-2">查看详情</a></td>
-                  <td class="px-3 py-3 border-b border-slate-100"><button type="button" class="text-blue-600 hover:underline js-dispatch mr-3">派单</button></td>
+                  <td class="px-3 py-3 border-b border-slate-100"><button type="button" class="text-blue-600 hover:underline js-dispatch">派单</button></td>
                 </tr>
-                <tr class="hover:bg-slate-50 acc-row" data-tax="small" data-id="acc-3" data-company="苏州维的科技有限公司" data-no="20260404006" data-contract="20260415003" data-dept="常熟组" data-sales="周方林" data-fee="117/月" data-chief="马时笑" data-adviser="马时笑" data-invoice="马时笑">
-                  <td class="px-3 py-3 border-b border-slate-100">20260404006</td>
+                <tr class="hover:bg-slate-50 acc-row" data-tax="small" data-id="acc-3" data-company="苏州维的科技有限公司" data-contract="20260415003" data-dept="常熟组" data-sales="周方林" data-fee="117/月" data-chief="马时笑" data-adviser="马时笑" data-invoice="马时笑">
                   <td class="px-3 py-3 border-b border-slate-100">苏州维的科技有限公司</td>
-                  <td class="px-3 py-3 border-b border-slate-100">常熟</td>
+                  <td class="px-3 py-3 border-b border-slate-100">常熟组</td>
                   <td class="px-3 py-3 border-b border-slate-100">周方林</td>
+                  <td class="px-3 py-3 border-b border-slate-100 text-slate-400">—</td>
+                  <td class="px-3 py-3 border-b border-slate-100 text-slate-400">—</td>
+                  <td class="px-3 py-3 border-b border-slate-100 text-slate-400">—</td>
                   <td class="px-3 py-3 border-b border-slate-100">1400</td>
                   <td class="px-3 py-3 border-b border-slate-100">年付</td>
                   <td class="px-3 py-3 border-b border-slate-100">117</td>
                   <td class="px-3 py-3 border-b border-slate-100">2026-06</td>
-                  <td class="px-3 py-3 border-b border-slate-100">2027-05</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><span class="deadline-badge deadline-warning">余2个月</span></td>
                   <td class="px-3 py-3 border-b border-slate-100">2028-03-21</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
                   <td class="px-3 py-3 border-b border-slate-100"><a class="text-blue-600 hover:underline" href="accounting-customer-detail.html?id=acc-3">查看详情</a></td>
-                  <td class="px-3 py-3 border-b border-slate-100"><button type="button" class="text-blue-600 hover:underline js-dispatch mr-3">派单</button></td>
+                  <td class="px-3 py-3 border-b border-slate-100"><button type="button" class="text-blue-600 hover:underline js-dispatch">派单</button></td>
                 </tr>
-                <tr class="hover:bg-slate-50 acc-row" data-tax="general" data-id="acc-4" data-company="万州维的科技有限公司" data-no="20260404007" data-contract="20260415004" data-dept="岚诺组" data-sales="周方林" data-fee="125/月" data-chief="马时笑" data-adviser="马时笑" data-invoice="马时笑">
-                  <td class="px-3 py-3 border-b border-slate-100">20260404007</td>
+                <tr class="hover:bg-slate-50 acc-row" data-tax="general" data-id="acc-4" data-company="万州维的科技有限公司" data-contract="20260415004" data-dept="岚诺组" data-sales="周方林" data-fee="125/月" data-chief="马时笑" data-adviser="马时笑" data-invoice="马时笑">
                   <td class="px-3 py-3 border-b border-slate-100">万州维的科技有限公司</td>
-                  <td class="px-3 py-3 border-b border-slate-100">岚诺</td>
+                  <td class="px-3 py-3 border-b border-slate-100">岚诺组</td>
                   <td class="px-3 py-3 border-b border-slate-100">周方林</td>
+                  <td class="px-3 py-3 border-b border-slate-100 text-slate-400">—</td>
+                  <td class="px-3 py-3 border-b border-slate-100 text-slate-400">—</td>
+                  <td class="px-3 py-3 border-b border-slate-100 text-slate-400">—</td>
                   <td class="px-3 py-3 border-b border-slate-100">1500</td>
                   <td class="px-3 py-3 border-b border-slate-100">年付</td>
                   <td class="px-3 py-3 border-b border-slate-100">125</td>
                   <td class="px-3 py-3 border-b border-slate-100">2026-06</td>
-                  <td class="px-3 py-3 border-b border-slate-100">2027-05</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><span class="deadline-badge deadline-overdue">逾期1个月</span></td>
                   <td class="px-3 py-3 border-b border-slate-100">2028-03-21</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
-                  <td class="px-3 py-3 border-b border-slate-100">---</td>
                   <td class="px-3 py-3 border-b border-slate-100"><a class="text-blue-600 hover:underline" href="accounting-customer-detail.html?id=acc-4">查看详情</a></td>
-                  <td class="px-3 py-3 border-b border-slate-100"><button type="button" class="text-blue-600 hover:underline js-dispatch mr-3">派单</button></td>
+                  <td class="px-3 py-3 border-b border-slate-100"><button type="button" class="text-blue-600 hover:underline js-dispatch">派单</button></td>
                 </tr>
-                <tr class="hover:bg-slate-50 acc-row" data-tax="general" data-id="acc-5" data-company="苏州维的科技有限公司" data-no="20260404008" data-contract="20260415005" data-dept="岚诺组" data-sales="马苏" data-fee="325/月" data-chief="马时笑" data-adviser="马时笑" data-invoice="马时笑">
-                  <td class="px-3 py-3 border-b border-slate-100">20260404008</td>
+                <tr class="hover:bg-slate-50 acc-row" data-tax="general" data-id="acc-5" data-company="苏州维的科技有限公司" data-contract="20260415005" data-dept="网销一组" data-sales="周方林" data-fee="325/月" data-chief="马时笑" data-adviser="马时笑" data-invoice="马时笑">
                   <td class="px-3 py-3 border-b border-slate-100">苏州维的科技有限公司</td>
-                  <td class="px-3 py-3 border-b border-slate-100">马苏</td>
+                  <td class="px-3 py-3 border-b border-slate-100">网销一组</td>
                   <td class="px-3 py-3 border-b border-slate-100">周方林</td>
+                  <td class="px-3 py-3 border-b border-slate-100">马时笑</td>
+                  <td class="px-3 py-3 border-b border-slate-100">马时笑</td>
+                  <td class="px-3 py-3 border-b border-slate-100">马时笑</td>
                   <td class="px-3 py-3 border-b border-slate-100">4000</td>
                   <td class="px-3 py-3 border-b border-slate-100">年付</td>
                   <td class="px-3 py-3 border-b border-slate-100">325</td>
                   <td class="px-3 py-3 border-b border-slate-100">2026-06</td>
-                  <td class="px-3 py-3 border-b border-slate-100">2027-05</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><span class="deadline-badge deadline-warning">余3个月</span></td>
                   <td class="px-3 py-3 border-b border-slate-100">2028-03-21</td>
-                  <td class="px-3 py-3 border-b border-slate-100">6月到期</td>
-                  <td class="px-3 py-3 border-b border-slate-100">马时笑</td>
-                  <td class="px-3 py-3 border-b border-slate-100">马时笑</td>
-                  <td class="px-3 py-3 border-b border-slate-100">马时笑</td>
                   <td class="px-3 py-3 border-b border-slate-100"><a class="text-blue-600 hover:underline" href="accounting-customer-detail.html?id=acc-5">查看详情</a></td>
-                  <td class="px-3 py-3 border-b border-slate-100">
-                    <button type="button" class="text-blue-600 hover:underline js-progress mr-3">添加办理进度</button>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap">
+                    <button type="button" class="text-blue-600 hover:underline js-progress mr-3">添加进度</button>
                     <button type="button" class="text-blue-600 hover:underline js-transfer">移交</button>
                   </td>
                 </tr>
-                <tr class="hover:bg-slate-50 acc-row" data-tax="small" data-id="acc-6" data-company="苏州维的科技有限公司" data-no="20260404009" data-contract="20260415006" data-dept="常熟组" data-sales="常熟" data-fee="117/月" data-chief="马时笑" data-adviser="马时笑" data-invoice="马时笑">
-                  <td class="px-3 py-3 border-b border-slate-100">20260404009</td>
+                <tr class="hover:bg-slate-50 acc-row" data-tax="small" data-id="acc-6" data-company="苏州维的科技有限公司" data-contract="20260415006" data-dept="常熟组" data-sales="周方林" data-fee="117/月" data-chief="马时笑" data-adviser="马时笑" data-invoice="马时笑">
                   <td class="px-3 py-3 border-b border-slate-100">苏州维的科技有限公司</td>
-                  <td class="px-3 py-3 border-b border-slate-100">常熟</td>
+                  <td class="px-3 py-3 border-b border-slate-100">常熟组</td>
                   <td class="px-3 py-3 border-b border-slate-100">周方林</td>
+                  <td class="px-3 py-3 border-b border-slate-100">马时笑</td>
+                  <td class="px-3 py-3 border-b border-slate-100">马时笑</td>
+                  <td class="px-3 py-3 border-b border-slate-100">马时笑</td>
                   <td class="px-3 py-3 border-b border-slate-100">6500</td>
                   <td class="px-3 py-3 border-b border-slate-100">年付</td>
                   <td class="px-3 py-3 border-b border-slate-100">117</td>
                   <td class="px-3 py-3 border-b border-slate-100">2026-06</td>
-                  <td class="px-3 py-3 border-b border-slate-100">2027-05</td>
+                  <td class="px-3 py-3 border-b border-slate-100"><span class="deadline-badge deadline-warning">余1个月</span></td>
                   <td class="px-3 py-3 border-b border-slate-100">2028-03-21</td>
-                  <td class="px-3 py-3 border-b border-slate-100">6月到期</td>
-                  <td class="px-3 py-3 border-b border-slate-100">马时笑</td>
-                  <td class="px-3 py-3 border-b border-slate-100">马时笑</td>
-                  <td class="px-3 py-3 border-b border-slate-100">马时笑</td>
                   <td class="px-3 py-3 border-b border-slate-100"><a class="text-blue-600 hover:underline" href="accounting-customer-detail.html?id=acc-6">查看详情</a></td>
-                  <td class="px-3 py-3 border-b border-slate-100">
-                    <button type="button" class="text-blue-600 hover:underline js-progress mr-3">添加办理进度</button>
+                  <td class="px-3 py-3 border-b border-slate-100 whitespace-nowrap">
+                    <button type="button" class="text-blue-600 hover:underline js-progress mr-3">添加进度</button>
                     <button type="button" class="text-blue-600 hover:underline js-transfer">移交</button>
                   </td>
                 </tr>
@@ -306,19 +323,16 @@
         <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600" data-close-add><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
       <div class="px-6 py-5 grid grid-cols-2 gap-x-8 gap-y-4 text-sm">
-        <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">企业编号 <span class="text-red-500">*</span></label><input class="h-9 rounded border border-slate-200 px-3 bg-slate-50" value="2026040815" readonly></div>
-        <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">客户名称 <span class="text-red-500">*</span></label><input class="h-9 rounded border border-slate-200 px-3" placeholder="请输入"></div>
+        <div class="grid grid-cols-[100px_1fr] items-center gap-3"><label class="text-right text-slate-600">企业名称 <span class="text-red-500">*</span></label><input class="h-9 rounded border border-slate-200 px-3" placeholder="请输入"></div>
         <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">企业类型 <span class="text-red-500">*</span></label><select class="h-9 rounded border border-slate-200 px-3 bg-white"><option>一般纳税人</option><option>小规模纳税人</option></select></div>
-        <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">服务项目 <span class="text-red-500">*</span></label><select class="h-9 rounded border border-slate-200 px-3 bg-white"><option>一般纳税人</option><option>代理记账</option></select></div>
         <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">关联合同 <span class="text-red-500">*</span></label><select class="h-9 rounded border border-slate-200 px-3 bg-white"><option>20260415002</option><option>20260415003</option></select></div>
         <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">合同金额 <span class="text-red-500">*</span></label><input class="h-9 rounded border border-slate-200 px-3 bg-slate-50" value="2026040815" readonly></div>
-        <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">业务员 <span class="text-red-500">*</span></label><select class="h-9 rounded border border-slate-200 px-3 bg-white"><option>马时笑</option><option>马石油</option></select></div>
-        <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">所属部门 <span class="text-red-500">*</span></label><select class="h-9 rounded border border-slate-200 px-3 bg-white"><option>网销一组</option><option>常熟组</option></select></div>
         <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">收费单位 <span class="text-red-500">*</span></label><select class="h-9 rounded border border-slate-200 px-3 bg-white"><option>年付</option><option>季付</option></select></div>
         <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">代账费/月 <span class="text-red-500">*</span></label><input class="h-9 rounded border border-slate-200 px-3" value="333"></div>
-        <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">合同结束日期</label><input class="h-9 rounded border border-slate-200 px-3 bg-slate-50" value="2026-04-16" readonly></div>
         <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">记账开始月份 <span class="text-red-500">*</span></label><div class="relative"><i class="fa-regular fa-calendar absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i><input class="h-9 w-full rounded border border-slate-200 pl-9 pr-3" value="2026-04"></div></div>
-        <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">记账中止月份 <span class="text-red-500">*</span></label><div class="relative"><i class="fa-regular fa-calendar absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i><input class="h-9 w-full rounded border border-slate-200 pl-9 pr-3" value="2026-04"></div></div>
+        <div class="grid grid-cols-[100px_1fr] items-center gap-3"><label class="text-right text-slate-600">收费截止月份 <span class="text-red-500">*</span></label><div class="relative"><i class="fa-regular fa-calendar absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i><input class="h-9 w-full rounded border border-slate-200 pl-9 pr-3" value="2027-05"></div></div>
+        <div class="grid grid-cols-[100px_1fr] items-center gap-3"><label class="text-right text-slate-600">销售员 <span class="text-red-500">*</span></label><select class="h-9 rounded border border-slate-200 px-3 bg-white"><option>周芳林</option><option>周方林</option></select></div>
+        <div class="grid grid-cols-[100px_1fr] items-center gap-3"><label class="text-right text-slate-600">业务部门 <span class="text-red-500">*</span></label><select class="h-9 rounded border border-slate-200 px-3 bg-white"><option>网销一组</option><option>常熟组</option></select></div>
         <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">主办会计 <span class="text-red-500">*</span></label><select class="h-9 rounded border border-slate-200 px-3 bg-white"><option>马时笑</option><option>许悦</option></select></div>
         <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">财税顾问 <span class="text-red-500">*</span></label><select class="h-9 rounded border border-slate-200 px-3 bg-white"><option>马时笑</option><option>许月</option></select></div>
         <div class="grid grid-cols-[90px_1fr] items-center gap-3"><label class="text-right text-slate-600">开票员 <span class="text-red-500">*</span></label><select class="h-9 rounded border border-slate-200 px-3 bg-white"><option>马时笑</option><option>许悦</option></select></div>
@@ -332,26 +346,15 @@
 
   <div id="modal-dispatch-accounting" class="fixed inset-0 z-[130] hidden items-center justify-center bg-slate-900/45 p-4">
     <div class="absolute inset-0" data-close-dispatch></div>
-    <div class="relative w-full max-w-3xl rounded-xl border border-slate-200 bg-white shadow-xl">
+    <div class="relative w-full max-w-md rounded-xl border border-slate-200 bg-white shadow-xl">
       <div class="relative border-b border-slate-200 px-5 py-4">
         <h3 class="text-center text-base font-semibold text-slate-800">代账客户派单</h3>
         <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600" data-close-dispatch><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
       <div class="px-6 py-5 text-sm space-y-4">
         <div class="grid grid-cols-2 gap-x-8 gap-y-3">
-          <div><p class="text-xs text-slate-500 mb-1">客户名称</p><p id="dispatch-company" class="text-slate-800">—</p></div>
-          <div><p class="text-xs text-slate-500 mb-1">企业编号</p><p id="dispatch-no" class="text-slate-800">—</p></div>
-          <div><p class="text-xs text-slate-500 mb-1">企业类型</p><p class="text-slate-800">一般纳税人</p></div>
-          <div><p class="text-xs text-slate-500 mb-1">服务项目</p><p class="text-slate-800">代理记账</p></div>
-          <div><p class="text-xs text-slate-500 mb-1">关联合同</p><p id="dispatch-contract" class="text-blue-600">—</p></div>
-          <div><p class="text-xs text-slate-500 mb-1">合同金额</p><p class="text-slate-800">4000</p></div>
-          <div><p class="text-xs text-slate-500 mb-1">业务员</p><p id="dispatch-sales" class="text-slate-800">—</p></div>
-          <div><p class="text-xs text-slate-500 mb-1">所属部门</p><p id="dispatch-dept" class="text-slate-800">—</p></div>
-          <div><p class="text-xs text-slate-500 mb-1">收费单位</p><p class="text-slate-800">年付</p></div>
-          <div><p class="text-xs text-slate-500 mb-1">代账费</p><p id="dispatch-fee" class="text-slate-800">—</p></div>
-          <div><p class="text-xs text-slate-500 mb-1">合同结束日期</p><p class="text-slate-800">2026-04-16</p></div>
-          <div><p class="text-xs text-slate-500 mb-1">记账开始月份 <span class="text-red-500">*</span></p><div class="relative max-w-[220px]"><i class="fa-regular fa-calendar absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i><input class="h-9 w-full rounded border border-slate-200 pl-9 pr-3" value="2026-04"></div></div>
-          <div><p class="text-xs text-slate-500 mb-1">记账中止月份 <span class="text-red-500">*</span></p><div class="relative max-w-[220px]"><i class="fa-regular fa-calendar absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i><input class="h-9 w-full rounded border border-slate-200 pl-9 pr-3" value="2026-04"></div></div>
+          <div><p class="text-xs text-slate-500 mb-1">企业名称</p><p id="dispatch-company" class="text-slate-800">—</p></div>
+          <div><label class="text-xs text-slate-500 mb-1 block">关联合同</label><select id="dispatch-contract" class="h-9 w-full rounded border border-slate-200 px-3 bg-white"><option>20260415002</option><option>20260415003</option></select></div>
           <div><label class="text-xs text-slate-500 mb-1 block">主办会计 <span class="text-red-500">*</span></label><select class="h-9 w-full max-w-[220px] rounded border border-slate-200 px-3 bg-white"><option>马时笑</option><option>许悦</option></select></div>
           <div><label class="text-xs text-slate-500 mb-1 block">财税顾问 <span class="text-red-500">*</span></label><select class="h-9 w-full max-w-[220px] rounded border border-slate-200 px-3 bg-white"><option>马时笑</option><option>许悦</option></select></div>
           <div><label class="text-xs text-slate-500 mb-1 block">开票员 <span class="text-red-500">*</span></label><select class="h-9 w-full max-w-[220px] rounded border border-slate-200 px-3 bg-white"><option>马时笑</option><option>许悦</option></select></div>
@@ -443,11 +446,8 @@
 
       function openDispatch(row) {
         document.getElementById('dispatch-company').textContent = row.dataset.company || '—';
-        document.getElementById('dispatch-no').textContent = row.dataset.no || '—';
-        document.getElementById('dispatch-contract').textContent = row.dataset.contract || '—';
-        document.getElementById('dispatch-sales').textContent = row.dataset.sales || '—';
-        document.getElementById('dispatch-dept').textContent = row.dataset.dept || '—';
-        document.getElementById('dispatch-fee').textContent = row.dataset.fee || '—';
+        var contractSel = document.getElementById('dispatch-contract');
+        if (contractSel && row.dataset.contract) contractSel.value = row.dataset.contract;
         modalDispatch.classList.remove('hidden');
         modalDispatch.classList.add('flex');
       }

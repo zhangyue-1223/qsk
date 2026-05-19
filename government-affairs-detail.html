@@ -13,6 +13,22 @@
     .sec-title { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9375rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; }
     .sec-title::before { content: ''; width: 3px; height: 14px; border-radius: 2px; background: #2563eb; flex-shrink: 0; }
     #modal-progress-detail:not(.hidden) { display: flex; }
+    .wo-steps { display: flex; align-items: flex-start; justify-content: space-between; gap: 0; padding: 0.5rem 0 1.25rem; overflow-x: auto; }
+    .wo-step { flex: 1; min-width: 5.5rem; position: relative; text-align: center; }
+    .wo-step:not(:last-child)::after {
+      content: ''; position: absolute; top: 14px; left: calc(50% + 16px); right: calc(-50% + 16px);
+      height: 2px; background: #e2e8f0; z-index: 0;
+    }
+    .wo-step.done:not(:last-child)::after, .wo-step.active:not(:last-child)::after { background: #3b82f6; }
+    .wo-step-dot {
+      width: 28px; height: 28px; border-radius: 50%; margin: 0 auto 0.5rem; position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: center; font-size: 0.7rem; border: 2px solid #e2e8f0; background: #fff; color: #94a3b8;
+    }
+    .wo-step.done .wo-step-dot { background: #2563eb; border-color: #2563eb; color: #fff; }
+    .wo-step.active .wo-step-dot { background: #2563eb; border-color: #2563eb; color: #fff; }
+    .wo-step.pending .wo-step-dot { background: #fff; border-color: #cbd5e1; color: #94a3b8; }
+    .wo-step-label { font-size: 0.8125rem; color: #334155; font-weight: 500; line-height: 1.3; }
+    .wo-step-sub { font-size: 0.6875rem; color: #94a3b8; margin-top: 0.25rem; line-height: 1.2; }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-700">
@@ -79,7 +95,7 @@
           </summary>
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="payment-request.html">财务申请</a>
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="#">人事申请</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="hr-request.html">人事申请</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="financial-reports.html">财务报表</a>
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="salary-management.html">薪资管理</a>
           </div>
@@ -91,7 +107,8 @@
           </summary>
           <div class="mt-1 ml-2 pl-3 border-l border-slate-700 space-y-0.5">
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="role-permissions.html">角色权限</a>
-            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="department-employees.html">部门员工</a>
+            <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="department-employees.html">部门员工</a>
+
             <a class="block py-2 px-3 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white" href="dictionary-management.html">字典管理</a>
           </div>
         </details>
@@ -102,7 +119,7 @@
       <header class="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 gap-2 flex items-center justify-between shrink-0">
         <div class="flex items-center gap-2 min-w-0 flex-1">
         <button type="button" id="btn-sidebar-toggle" class="lg:hidden shrink-0 w-10 h-10 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 flex items-center justify-center" aria-expanded="false" aria-controls="app-sidebar" aria-label="打开导航菜单"><i class="fa-solid fa-bars text-lg"></i></button>
-        <div class="text-sm text-slate-500 min-w-0 truncate">交付中心 / <span class="text-slate-700 font-medium">政务管理</span></div>
+        <div class="text-sm text-slate-500 min-w-0 truncate">交付中心 / <span class="text-slate-700 font-medium">政务服务</span></div>
         </div>
         <div class="flex items-center gap-3 shrink-0">
           <button type="button" class="w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200"><i class="fa-regular fa-bell"></i></button>
@@ -117,10 +134,14 @@
       </header>
 
       <section class="p-4 sm:p-6 flex-1">
-        <div class="text-sm text-slate-500 mb-3">交付中心 / 政务管理</div>
+        <div class="text-sm text-slate-500 mb-3">交付中心 / 政务服务</div>
         <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
           <div class="px-5 py-3 border-b border-slate-200">
             <a href="government-affairs.html" class="text-sm text-slate-500 hover:text-slate-700"><i class="fa-solid fa-angle-left mr-1"></i>工单详情</a>
+          </div>
+
+          <div class="px-5 pt-4 pb-2 border-b border-slate-100">
+            <div id="block-workflow-steps" class="wo-steps" aria-label="工单办理进度"></div>
           </div>
 
           <div class="grid grid-cols-1 xl:grid-cols-5 gap-0">
@@ -128,18 +149,22 @@
             <div class="xl:col-span-3 p-5 border-b xl:border-b-0 xl:border-r border-slate-200 space-y-8">
               <section>
                 <h3 class="sec-title">工单信息</h3>
-                <div id="block-order-info" class="grid grid-cols-2 gap-x-8 gap-y-3 text-sm"></div>
+                <div id="block-order-info" class="text-sm"></div>
               </section>
               <section>
-                <h3 class="sec-title">客户资料</h3>
-                <div id="block-customer-fields" class="grid grid-cols-2 gap-x-8 gap-y-3 text-sm mb-4"></div>
-                <p class="text-xs text-slate-500 mb-1">备注说明</p>
-                <div id="block-customer-note" class="rounded border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600 mb-4"></div>
-                <p class="text-xs text-slate-500 mb-2">客户画像</p>
-                <div id="block-customer-tags" class="flex flex-wrap gap-2"></div>
+                <h3 class="sec-title">工商信息</h3>
+                <div id="block-ic-info" class="grid grid-cols-1 gap-y-3 text-sm"></div>
+                <div class="mt-3">
+                  <p class="text-xs text-slate-500 mb-1">经营范围</p>
+                  <p id="block-scope" class="text-sm text-slate-700 leading-relaxed rounded border border-slate-100 bg-slate-50/80 p-3"></p>
+                </div>
               </section>
+            </div>
+
+            <!-- 右侧 -->
+            <div class="xl:col-span-2 p-5 space-y-8">
               <section>
-                <h3 class="sec-title">其他信息</h3>
+                <h3 class="sec-title">附件资料</h3>
                 <div class="grid grid-cols-3 gap-3">
                   <div class="aspect-[4/3] rounded-lg border border-dashed border-slate-200 bg-slate-50 flex flex-col items-center justify-center text-xs text-slate-400">
                     <i class="fa-regular fa-image mb-2 text-lg"></i>身份证
@@ -152,22 +177,10 @@
                   </div>
                 </div>
               </section>
-            </div>
-
-            <!-- 右侧 -->
-            <div class="xl:col-span-2 p-5 space-y-8">
-              <section>
-                <h3 class="sec-title">工商信息</h3>
-                <div id="block-ic-info" class="grid grid-cols-1 gap-y-3 text-sm"></div>
-                <div class="mt-3">
-                  <p class="text-xs text-slate-500 mb-1">经营范围</p>
-                  <p id="block-scope" class="text-sm text-slate-700 leading-relaxed rounded border border-slate-100 bg-slate-50/80 p-3"></p>
-                </div>
-              </section>
               <section>
                 <div class="flex items-center justify-between mb-4">
                   <h3 class="sec-title !mb-0">办理进度</h3>
-                  <button type="button" id="btn-add-progress-detail" class="text-sm font-medium text-red-500 hover:text-red-600 shrink-0">添加办理进度</button>
+                  <button type="button" id="btn-add-progress-detail" class="text-sm font-medium text-blue-600 hover:text-blue-700 shrink-0">添加进度</button>
                 </div>
                 <div class="overflow-x-auto rounded border border-slate-200">
                   <table class="w-full min-w-[520px] text-sm">
@@ -232,69 +245,69 @@
     (function () {
       var dataMap = {
         'gov-1': {
+          workflow: [
+            { label: '创建工单', sub: '2024-04-09 17:23', state: 'done' },
+            { label: '服务派单', sub: '2024-04-10 17:23', state: 'done' },
+            { label: '客户资料交接', sub: '2024-04-10 17:23', state: 'done' },
+            { label: '工单移交', sub: '许月', state: 'done' },
+            { label: '线下提报', sub: '许月', state: 'active' },
+            { label: '线上申报', sub: '许月', state: 'active' },
+            { label: '工单完成', sub: '2024-04-13 17:23', state: 'done' }
+          ],
           order: {
-            工单编号: '20260404002',
-            客户名称: '苏州美药科技有限公司',
-            关联合同: { text: '20260404001', href: '#' },
-            签订日期: '2026-04-10',
-            服务项目: '解地址异常',
-            业务员: '周方林',
-            经办人: '许悦',
-            办理进度: '待派单',
-            派单时间: '—'
+            企业名称: '苏州九川数字科技有限公司',
+            关联合同: { text: '202304140001', href: '#' },
+            业务类型: '解除地址异常',
+            销售员: '周芳林',
+            所属部门: '网销一组',
+            所属区域: '苏州市姑苏区',
+            创建时间: '2024-04-14 18:57:21',
+            线上申报员: '周芳林',
+            线下提报员: '许月',
+            派单时间: '2024-04-14 18:57:21'
           },
-          customer: {
-            客户姓名: '王敏',
-            手机号码: '18605118899',
-            所属区域: '苏州园区',
-            行业类别: '科技服务',
-            企业形式: '有限责任公司',
-            来源渠道: '老客户介绍'
-          },
-          note: '客户配合度高，需尽快完成地址异常解除，避免影响后续开票。',
-          tags: ['价格敏感', '注重性价比', '沟通顺畅'],
           ic: {
-            公司名称: '苏州美药科技有限公司',
-            法定代表人: '张某',
+            企业名称: '苏州九川数字科技有限公司',
+            法定代表人: '李川',
             股份占比: '100%',
-            联系电话: '0512-88880001',
-            身份证号码: '3205**********1234',
-            内部财务: '李会计',
-            联系电话2: '13900001111',
-            身份证号码2: '3205**********5678',
-            注册资本: '500万元',
-            注册地址: '苏州市工业园区星湖街328号'
+            联系电话: '1381620733',
+            法人身份证号码: '51060398708042221',
+            内部财务: '李川',
+            联系电话2: '1381620733',
+            身份证号码2: '51060398708042221',
+            注册资本: '10万',
+            注册地址: '挂靠苏州园区'
           },
-          scope: '生物技术开发；医疗器械销售（按许可证核定范围经营）；企业管理咨询；会务服务。（依法须经批准的项目，经相关部门批准后方可开展经营活动）',
+          scope: '这是经营范围。这是经营范围。这是经营范围。这是经营范围。这是经营范围。这是经营范围。这是经营范围。这是经营范围。这是经营范围。这是经营范围。',
           progress: [
-            { node: '确认资料', status: '交接完成', agent: '许悦', date: '2026-04-11', desc: '资料清单已确认', action: '' },
-            { node: '提交资料', status: '待提交', agent: '许悦', date: '2026-04-12', desc: '—', action: '编辑' }
+            { node: '确认资料', status: '交接完成', agent: '线上申报员', date: '2024-04-13', desc: '客户资料已全部交接', action: '' },
+            { node: '提交资料', status: '待提交', agent: '线下申报员', date: '2024-04-13', desc: '—', action: '编辑' }
           ]
         },
         'gov-2': {
+          workflow: [
+            { label: '创建工单', sub: '2026-04-12 10:00', state: 'done' },
+            { label: '服务派单', sub: '2026-04-12 14:00', state: 'done' },
+            { label: '客户资料交接', sub: '2026-04-13 09:00', state: 'done' },
+            { label: '工单移交', sub: '许月', state: 'done' },
+            { label: '线下提报', sub: '许月', state: 'active' },
+            { label: '线上申报', sub: '周芳林', state: 'pending' },
+            { label: '工单完成', sub: '', state: 'pending' }
+          ],
           order: {
-            工单编号: '20260404003',
-            客户名称: '苏州维尔因科技有限公司',
+            企业名称: '苏州维尔因科技有限公司',
             关联合同: { text: '20260415002', href: '#' },
-            签订日期: '2026-04-12',
-            服务项目: '解除地址异常',
-            业务员: '周方林',
-            经办人: '许悦',
-            办理进度: '提供材料',
+            业务类型: '解除地址异常',
+            销售员: '周芳林',
+            所属部门: '网销一组',
+            所属区域: '苏州吴中区',
+            创建时间: '2026-04-12 10:00:00',
+            线上申报员: '周芳林',
+            线下提报员: '许月',
             派单时间: '2026-03-21 16:03'
           },
-          customer: {
-            客户姓名: '李先生',
-            手机号码: '13812345678',
-            所属区域: '苏州吴中区',
-            行业类别: '贸易',
-            企业形式: '有限责任公司',
-            来源渠道: '抖音'
-          },
-          note: '部分材料已交接，待工商部门反馈补充项。',
-          tags: ['时效要求高'],
           ic: {
-            公司名称: '苏州维尔因科技有限公司',
+            企业名称: '苏州维尔因科技有限公司',
             法定代表人: '李某',
             股份占比: '60%',
             联系电话: '0512-66660002',
@@ -312,29 +325,29 @@
           ]
         },
         'gov-3': {
+          workflow: [
+            { label: '创建工单', sub: '2026-04-14 08:00', state: 'done' },
+            { label: '服务派单', sub: '2026-04-14 10:00', state: 'done' },
+            { label: '客户资料交接', sub: '', state: 'active' },
+            { label: '工单移交', sub: '', state: 'pending' },
+            { label: '线下提报', sub: '', state: 'pending' },
+            { label: '线上申报', sub: '', state: 'pending' },
+            { label: '工单完成', sub: '', state: 'pending' }
+          ],
           order: {
-            工单编号: '20260415001',
-            客户名称: '苏州美的信息科技有限公司',
+            企业名称: '苏州美的信息科技有限公司',
             关联合同: { text: '20260415002', href: '#' },
-            签订日期: '2026-04-14',
-            服务项目: '解除地址异常',
-            业务员: '陈莉',
-            经办人: '—',
-            办理进度: '收集材料',
+            业务类型: '解除地址异常',
+            销售员: '陈莉',
+            所属部门: '网销二组',
+            所属区域: '苏州昆山市',
+            创建时间: '2026-04-14 08:00:00',
+            线上申报员: '周芳林',
+            线下提报员: '许月',
             派单时间: '2026-03-20 10:15'
           },
-          customer: {
-            客户姓名: '赵峰',
-            手机号码: '17705126600',
-            所属区域: '苏州昆山',
-            行业类别: '信息服务',
-            企业形式: '有限责任公司',
-            来源渠道: '58同城'
-          },
-          note: '—',
-          tags: ['易沟通', '注重合规'],
           ic: {
-            公司名称: '苏州美的信息科技有限公司',
+            企业名称: '苏州美的信息科技有限公司',
             法定代表人: '周某',
             股份占比: '100%',
             联系电话: '0512-77770003',
@@ -351,29 +364,29 @@
           ]
         },
         'gov-4': {
+          workflow: [
+            { label: '创建工单', sub: '2026-03-01 09:00', state: 'done' },
+            { label: '服务派单', sub: '2026-03-01 10:00', state: 'done' },
+            { label: '客户资料交接', sub: '2026-03-05 14:00', state: 'done' },
+            { label: '工单移交', sub: '许月', state: 'done' },
+            { label: '线下提报', sub: '许月', state: 'done' },
+            { label: '线上申报', sub: '周芳林', state: 'done' },
+            { label: '工单完成', sub: '2026-03-28', state: 'done' }
+          ],
           order: {
-            工单编号: '20260301001',
-            客户名称: '昆山示例贸易有限公司',
+            企业名称: '昆山示例贸易有限公司',
             关联合同: { text: '20260301001', href: '#' },
-            签订日期: '2026-03-01',
-            服务项目: '工商变更',
-            业务员: '周方林',
-            经办人: '马时笑',
-            办理进度: '已完成',
+            业务类型: '工商变更',
+            销售员: '周芳林',
+            所属部门: '网销一组',
+            所属区域: '苏州昆山市',
+            创建时间: '2026-03-01 09:00:00',
+            线上申报员: '周芳林',
+            线下提报员: '许月',
             派单时间: '2026-03-01 09:00'
           },
-          customer: {
-            客户姓名: '陈涛',
-            手机号码: '13900011223',
-            所属区域: '苏州昆山',
-            行业类别: '贸易',
-            企业形式: '有限责任公司',
-            来源渠道: '转介绍'
-          },
-          note: '变更事项已全部办结。',
-          tags: ['长期合作'],
           ic: {
-            公司名称: '昆山示例贸易有限公司',
+            企业名称: '昆山示例贸易有限公司',
             法定代表人: '陈某',
             股份占比: '100%',
             联系电话: '0512-55550004',
@@ -397,34 +410,43 @@
       if (!dataMap[id]) id = 'gov-1';
       var d = dataMap[id];
 
-      function kvGrid(obj, el) {
-        var keys = Object.keys(obj);
-        el.innerHTML = keys.map(function (k) {
-          var v = obj[k];
-          if (v && typeof v === 'object' && v.text) {
-            return '<div><p class="text-xs text-slate-500 mb-1">' + k + '</p><p class="text-sm"><a href="' + (v.href || '#') + '" class="text-blue-600 hover:underline">' + v.text + '</a></p></div>';
-          }
-          var show = v;
-          if (k === '手机号码' && show && show !== '—') {
-            show = '<span class="inline-flex items-center gap-2">' + v + ' <button type="button" class="text-slate-400 hover:text-blue-600" title="复制"><i class="fa-regular fa-copy text-xs"></i></button></span>';
-          } else {
-            show = '<span class="text-slate-800">' + v + '</span>';
-          }
-          return '<div><p class="text-xs text-slate-500 mb-1">' + k + '</p><p class="text-sm">' + show + '</p></div>';
+      function renderWorkflow(steps) {
+        var el = document.getElementById('block-workflow-steps');
+        if (!el || !steps) return;
+        el.innerHTML = steps.map(function (s) {
+          var icon = s.state === 'done'
+            ? '<i class="fa-solid fa-check text-xs"></i>'
+            : (s.state === 'active' ? '<span class="tracking-widest text-[10px] leading-none">•••</span>' : '');
+          return '<div class="wo-step ' + s.state + '">' +
+            '<div class="wo-step-dot">' + icon + '</div>' +
+            '<p class="wo-step-label">' + s.label + '</p>' +
+            (s.sub ? '<p class="wo-step-sub">' + s.sub + '</p>' : '') +
+            '</div>';
         }).join('');
       }
 
-      kvGrid(d.order, document.getElementById('block-order-info'));
-      kvGrid(d.customer, document.getElementById('block-customer-fields'));
-      document.getElementById('block-customer-note').textContent = d.note;
-      document.getElementById('block-customer-tags').innerHTML = d.tags.map(function (t) {
-        return '<span class="inline-flex rounded px-2 py-0.5 text-xs font-medium text-blue-600 bg-blue-50 ring-1 ring-blue-100">' + t + '</span>';
-      }).join('');
+      function renderOrderInfo(order) {
+        var el = document.getElementById('block-order-info');
+        var name = order['企业名称'] || '—';
+        var restKeys = Object.keys(order).filter(function (k) { return k !== '企业名称'; });
+        var nameRow = '<div class="mb-4 pb-4 border-b border-slate-100"><p class="text-xs text-slate-500 mb-1">企业名称</p><p class="text-base font-medium text-slate-800">' + name + '</p></div>';
+        var grid = restKeys.map(function (k) {
+          var v = order[k];
+          if (v && typeof v === 'object' && v.text) {
+            return '<div><p class="text-xs text-slate-500 mb-1">' + k + '</p><p class="text-sm"><a href="' + (v.href || '#') + '" class="text-blue-600 hover:underline">' + v.text + '</a></p></div>';
+          }
+          return '<div><p class="text-xs text-slate-500 mb-1">' + k + '</p><p class="text-sm text-slate-800">' + v + '</p></div>';
+        }).join('');
+        el.innerHTML = nameRow + '<div class="grid grid-cols-2 gap-x-8 gap-y-3">' + grid + '</div>';
+      }
+
+      renderWorkflow(d.workflow);
+      renderOrderInfo(d.order);
 
       var ic = d.ic;
       var icRows = [
-        [['公司名称', ic.公司名称], ['法定代表人', ic.法定代表人], ['股份占比', ic.股份占比]],
-        [['联系电话', ic.联系电话], ['身份证号码', ic.身份证号码]],
+        [['企业名称', ic.企业名称], ['法定代表人', ic.法定代表人], ['股份占比', ic.股份占比]],
+        [['联系电话', ic.联系电话], ['法人身份证号码', ic.法人身份证号码 || ic.身份证号码]],
         [['内部财务', ic.内部财务], ['联系电话', ic.联系电话2], ['身份证号码', ic.身份证号码2]],
         [['注册资本', ic.注册资本], ['注册地址', ic.注册地址]]
       ];
